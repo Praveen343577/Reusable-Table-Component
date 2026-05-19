@@ -1,122 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import Button from './Components/common/Button';
+import DropdownSelect from './Components/common/DropdownSelect';
+import Table from './Components/common/Table';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dropdownValue, setDropdownValue] = useState([]);
+
+  const tableColumns = [
+    { key: 'id', header: 'ID', width: '80px' },
+    { key: 'name', header: 'Name' },
+    { key: 'status', header: 'Status' }
+  ];
+
+  const tableData = [
+    { id: 1, name: 'Test Object Alpha', status: 'Active' },
+    { id: 2, name: 'Test Object Beta', status: 'Inactive' },
+    { id: 3, name: 'Test Object Gamma', status: 'Active' }
+  ];
+
+  const toggleDarkMode = () => {
+    document.body.classList.toggle('dark');
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', maxWidth: '1000px', margin: '0 auto' }}>
+      
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Component Testing Environment</h1>
+        <div style={{ width: '150px' }}>
+            <Button onClick={toggleDarkMode} variant="secondary">Toggle Dark Mode</Button>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+      <section>
+        <h2>1. Button</h2>
+        <div style={{ display: 'flex', gap: '1rem', width: '400px' }}>
+          <Button variant="primary">Primary</Button>
+          <Button variant="success">Success</Button>
+          <Button variant="danger">Danger</Button>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <section>
+        <h2>2. DropdownSelect</h2>
+        <div style={{ width: '300px' }}>
+          <DropdownSelect
+            options={[
+              { label: 'Engineering', value: 'eng' },
+              { label: 'Design', value: 'des' },
+              { label: 'Product', value: 'prod' }
+            ]}
+            value={dropdownValue}
+            onChange={setDropdownValue}
+            isMulti={true}
+            placeholder="Select departments..."
+          />
+        </div>
+      </section>
+
+      <section style={{ height: '500px' }}>
+        <h2>3. Table</h2>
+        <Table
+          columns={tableColumns}
+          data={tableData}
+          enableSearch={true}
+          enableSorting={true}
+          enablePagination={true}
+          enableSelection={true}
+          enableColumnToggle={true}
+        />
+      </section>
+    </div>
+  );
 }
 
-export default App
+export default App;
