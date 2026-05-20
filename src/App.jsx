@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from './Components/common/Button';
-import DropdownSelect from './Components/common/DropdownSelect';
-import Table from './Components/common/Table';
+import Button from './Components/Button';
+import DropdownSelect from './Components/DropdownSelect';
+import Table from './Components/Table';
 
 function App() {
   const [dropdownValue, setDropdownValue] = useState([]);
