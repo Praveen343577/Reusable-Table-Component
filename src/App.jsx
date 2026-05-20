@@ -1,73 +1,69 @@
+// src/App.jsx
 import { useState } from 'react';
-import Button from './Components/Button';
-import DropdownSelect from './Components/DropdownSelect';
 import Table from './Components/Table';
 
 function App() {
-  const [dropdownValue, setDropdownValue] = useState([]);
-
   const tableColumns = [
-    { key: 'id', header: 'ID', width: '80px' },
-    { key: 'name', header: 'Name' },
-    { key: 'status', header: 'Status' }
+    { key: 'vrn', header: 'VRN/Chassis no.' },
+    { key: 'type', header: 'Vehicle Type' },
+    { 
+      key: 'status', 
+      header: 'Status',
+      render: (row) => (
+        <span className={`status-chip status-${row.status.toLowerCase()}`}>
+          {row.status}
+        </span>
+      )
+    },
+    { key: 'driver', header: 'Driver' },
+    { key: 'fleet', header: 'Fleet' },
+    { key: 'speed', header: 'Speed' },
+    { key: 'soc', header: 'SOC' },
+    { key: 'odometer', header: 'Odometer' },
+    { key: 'dte', header: 'DTE' },
+    { key: 'temperature', header: 'Temperature' }
   ];
 
-  const tableData = [
-    { id: 1, name: 'Test Object Alpha', status: 'Active' },
-    { id: 2, name: 'Test Object Beta', status: 'Inactive' },
-    { id: 3, name: 'Test Object Gamma', status: 'Active' }
-  ];
+  // Generate mock dataset
+  const generateMockData = () => {
+    const statuses = ['Active', 'Active', 'Active', 'Inactive', 'Charging', 'Maintenance', 'Fault'];
+    const fleets = ['EKA Doto', 'EKA Transit', 'EKA Urban', 'EKA Cargo'];
+    const drivers = ['Sudhir Mehta', 'Rahul Sharma', 'Amit Kumar', 'Rajiv Singh'];
 
-  const toggleDarkMode = () => {
-    document.body.classList.toggle('dark');
+    return Array.from({ length: 500 }, (_, i) => {
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
+      return {
+        id: i + 1,
+        vrn: `HR24SE${3600 + i}`,
+        type: '12M',
+        status: status,
+        driver: drivers[i % drivers.length],
+        fleet: fleets[i % fleets.length],
+        speed: `${status === 'Active' ? 200 : 0} kmhp`,
+        soc: `${Math.floor(Math.random() * (100 - 10 + 1) + 10)}%`,
+        odometer: `${10000 + Math.floor(Math.random() * 5000)} km`,
+        dte: `${20 + Math.floor(Math.random() * 80)} km`,
+        temperature: `2026 °C` // Standardized to match screenshot
+      };
+    });
   };
 
+  const tableData = generateMockData();
+
+  const tabs = [
+    { label: 'All', count: 1200 },
+    { label: 'Active', count: 1000 },
+    { label: 'Inactive', count: 200 }
+  ];
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', maxWidth: '1000px', margin: '0 auto' }}>
-      
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Component Testing Environment</h1>
-        <div style={{ width: '150px' }}>
-            <Button onClick={toggleDarkMode} variant="secondary">Toggle Dark Mode</Button>
-        </div>
-      </header>
-
-      <section>
-        <h2>1. Button</h2>
-        <div style={{ display: 'flex', gap: '1rem', width: '400px' }}>
-          <Button variant="primary">Primary</Button>
-          <Button variant="success">Success</Button>
-          <Button variant="danger">Danger</Button>
-        </div>
-      </section>
-
-      <section>
-        <h2>2. DropdownSelect</h2>
-        <div style={{ width: '300px' }}>
-          <DropdownSelect
-            options={[
-              { label: 'Engineering', value: 'eng' },
-              { label: 'Design', value: 'des' },
-              { label: 'Product', value: 'prod' }
-            ]}
-            value={dropdownValue}
-            onChange={setDropdownValue}
-            isMulti={true}
-            placeholder="Select departments..."
-          />
-        </div>
-      </section>
-
-      <section style={{ height: '500px' }}>
-        <h2>3. Table</h2>
+    <div style={{ height: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+      <section style={{ height: '900px', width: '100%', maxWidth: '1833px', margin: '0 auto' }}>
         <Table
           columns={tableColumns}
           data={tableData}
-          enableSearch={true}
-          enableSorting={true}
-          enablePagination={true}
-          enableSelection={true}
-          enableColumnToggle={true}
+          tabs={tabs}
+          defaultTab="ALL"
         />
       </section>
     </div>

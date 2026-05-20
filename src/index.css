@@ -16,10 +16,14 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #f8fafc;
-  padding: 24px;
+  background-color: #111111; /* Outer app background */
+  background-image: radial-gradient(circle at 40% 50%, rgba(255, 60, 0, 0.4), transparent 40%),
+                    radial-gradient(circle at 60% 50%, rgba(117, 212, 75, 0.4), transparent 40%);
+  background-attachment: fixed;
+  padding: 40px;
+  color: #F7F7F7;
 }
 
 body.dark {
-  background-color: #0f172a;
+  background-color: #000000;
 }
