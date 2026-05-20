@@ -177,6 +177,9 @@ const Table = ({
                 </tr>
               ))
             )}
+            {/* <tr className="ct-filler-row">
+              <td colSpan={visibleCols.length + 1}></td>
+            </tr> */}
           </tbody>
         </table>
       </div>
