@@ -1,7 +1,21 @@
 /* Replace body and body.dark blocks in src/index.css */
+:root {
+  --bw-200: #4f4f4f;
+  --bw-300: #b0b0b0;
+  --bw-400: #c0c0c0;
+  --bw-500: #ffffff;
+
+  --primary-color: #0093af;
+  --primary-300: #0093af;
+
+  --color-green: #34c759;
+  --color-red: #ff2d55;
+  --color-blue: #32ade6;
+}
+
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background: #f4f6f8;
   color: #111111;
   min-height: 100vh;
@@ -13,7 +27,7 @@ body {
 
 body.dark {
   background: #0a0a0a;
-  color: #F7F7F7;
+  color: #f7f7f7;
 }
 
 /* Blurred Motion Orbs */
@@ -90,13 +104,25 @@ body.dark #root::before {
 }
 
 @keyframes float {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(15vw, 15vh) scale(1.2) rotate(45deg); }
-  66% { transform: translate(-10vw, 20vh) scale(0.9) rotate(-20deg); }
-  100% { transform: translate(5vw, -10vh) scale(1.1) rotate(20deg); }
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(15vw, 15vh) scale(1.2) rotate(45deg);
+  }
+  66% {
+    transform: translate(-10vw, 20vh) scale(0.9) rotate(-20deg);
+  }
+  100% {
+    transform: translate(5vw, -10vh) scale(1.1) rotate(20deg);
+  }
 }
 
 @keyframes sweep {
-  0% { transform: translate(-30%, -30%); }
-  100% { transform: translate(30%, 30%); }
+  0% {
+    transform: translate(-30%, -30%);
+  }
+  100% {
+    transform: translate(30%, 30%);
+  }
 }
