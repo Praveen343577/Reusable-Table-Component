@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 .ct-container {
   --glass-bg: rgba(255, 255, 255, 0.4);
   --glass-border: var(--bw-400);
@@ -115,10 +119,21 @@
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
+.ct-search-input:hover::placeholder {
+  color: #0093af;
+  transition: color 0.2s ease;
+}
+
+.ct-search-wrapper:hover .ct-search-icon {
+  color: #0093af;
+  transition: color 0.2s ease;
+}
+
 .ct-search-icon {
   position: absolute;
   left: 12px;
   color: rgba(0, 0, 0, 0.4);
+  transition: color 0.2s ease;
 }
 
 .ct-btn {
@@ -154,7 +169,8 @@
 .ct-table {
   width: 100%;
   height: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   text-align: left;
 }
 
@@ -168,16 +184,17 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);
-  border-bottom: 1px solid var(--glass-border);
   z-index: 5;
   white-space: nowrap;
-  user-select: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-bottom: none;
+  box-shadow:
+    inset 0 -1px 0 var(--border-color),
+    0 4px 8px rgba(0, 0, 0, 0.02);
 }
 
 .ct-th-sortable {
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
 }
 
 .ct-th-content {
@@ -191,6 +208,15 @@
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
+}
+
+.ct-th-sortable:hover .ct-sort-icons {
+  color: #0093af;
+  transition: color 0.2s ease;
+}
+
+.ct-sort-icons.active {
+  color: #0093af;
 }
 
 .ct-table td {
@@ -213,6 +239,21 @@
 
 .ct-table tbody tr:hover {
   background: var(--row-hover-bg);
+}
+
+.ct-table tbody tr.ct-header-margin {
+  background: transparent;
+}
+
+.ct-table tbody tr.ct-header-margin:hover {
+  background: transparent;
+}
+
+.ct-header-margin td {
+  height: 12px !important;
+  padding: 0 !important;
+  /* border: none !important; */
+  border-top: 2px solid #0093af !important;
 }
 
 .ct-checkbox {

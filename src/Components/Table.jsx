@@ -143,7 +143,7 @@ const Table = ({
                 <th key={col.key} className="ct-th-sortable" onClick={() => handleSort(col.key)} style={{ width: col.width }}>
                   <div className="ct-th-content">
                     {col.header}
-                    <div className="ct-sort-icons">
+                    <div className={`ct-sort-icons ${sortConfig.key === col.key ? "active" : ""}`}>
                       {sortConfig.key === col.key ? (
                         sortConfig.direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
                       ) : (
@@ -157,7 +157,11 @@ const Table = ({
           </thead>
           <tbody>
             {currentData.length === 0 ? (
-              <tr><td colSpan={visibleCols.length + 1} style={{ textAlign: "center", padding: "40px" }}>No records found.</td></tr>
+              <tr>
+                <td colSpan={visibleCols.length + 1} style={{ textAlign: "center", padding: "40px" }}>
+                  No records found.
+                </td>
+              </tr>
             ) : (
               currentData.map((row) => (
                 <tr key={row.id}>
