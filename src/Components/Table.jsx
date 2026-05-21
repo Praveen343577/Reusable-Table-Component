@@ -147,7 +147,7 @@ const Table = ({
                       {sortConfig.key === col.key ? (
                         sortConfig.direction === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
                       ) : (
-                        <ArrowUpDown size={14} style={{ opacity: 0.3 }} />
+                        <ArrowUpDown size={14} style={{ opacity: 0.5 }} />
                       )}
                     </div>
                   </div>
@@ -177,6 +177,8 @@ const Table = ({
                 </tr>
               ))
             )}
+            {/* This will extend the last row to stretch the full height of the table body when there are fewer rows than the page size, preventing awkward empty spaces and ensuring a consistent look. The CSS for .ct-filler-row can be adjusted to match the desired styling, 
+            such as background color or borders, to seamlessly blend with the rest of the table. */}
             {/* <tr className="ct-filler-row">
               <td colSpan={visibleCols.length + 1}></td>
             </tr> */}
