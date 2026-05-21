@@ -138,6 +138,7 @@
 
 .ct-btn:hover {
   background: rgba(255, 255, 255, 0.9);
+  color: #0093af;
 }
 
 .ct-table-wrapper {
@@ -342,10 +343,12 @@
 
 .ct-page-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.8);
+  color: #0093af;
 }
 
 .ct-page-btn.active {
   background: #ffffff;
+  color: #0093af;
   border-color: rgba(0, 0, 0, 0.1);
   font-weight: 600;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
