@@ -18,7 +18,39 @@ function App() {
     { key: 'driver', header: 'Driver' },
     { key: 'fleet', header: 'Fleet' },
     { key: 'speed', header: 'Speed' },
-    { key: 'soc', header: 'SOC' },
+    { 
+      key: 'soc', 
+      header: 'SOC',
+      render: (row) => {
+        const val = parseInt(row.soc, 10);
+        let color = '#34c759'; // Green
+        if (val < 20) color = '#ff2d55'; // Red
+        else if (val < 40) color = '#ff9500'; // Orange
+        else if (val < 60) color = '#ffcc00'; // Yellow
+
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <svg width="20" height="20" viewBox="0 0 36 36" style={{ transform: 'rotate(-90deg)' }}>
+              <path
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#e5e5e5"
+                strokeWidth="4"
+              />
+              <path
+                strokeDasharray={`${val}, 100`}
+                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke={color}
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span>{row.soc}</span>
+          </div>
+        );
+      }
+    },
     { key: 'odometer', header: 'Odometer' },
     { key: 'dte', header: 'DTE' },
     { key: 'temperature', header: 'Temperature' }
@@ -39,7 +71,7 @@ function App() {
         status: status,
         driver: drivers[i % drivers.length],
         fleet: fleets[i % fleets.length],
-        speed: `${status === 'Active' ? 200 : 0} kmhp`,
+        speed: `${status === 'Active' ? 200 : 0} km/h`,
         soc: `${Math.floor(Math.random() * (100 - 10 + 1) + 10)}%`,
         odometer: `${10000 + Math.floor(Math.random() * 5000)} km`,
         dte: `${20 + Math.floor(Math.random() * 80)} km`,
