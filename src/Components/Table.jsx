@@ -1,7 +1,7 @@
 // src/Components/common/Table.jsx
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Search, ArrowUp, ArrowDown, ArrowUpDown, Download, Columns, Filter } from "lucide-react";
+import { Search, ArrowUp, ArrowDown, ArrowUpDown, Download, Columns, Filter, ChevronsLeft, ChevronsRight } from "lucide-react";
 import "./Table.css";
 
 const Table = ({
@@ -75,6 +75,22 @@ const Table = ({
   const toggleColumn = (key) => setHiddenColumns((prev) => prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]);
   
   const visibleCols = columns.filter((col) => !hiddenColumns.includes(col.key));
+
+  const getPaginationItems = () => {
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, 'right', totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1, 'left', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, 'left', currentPage - 1, currentPage, currentPage + 1, 'right', totalPages);
+      }
+    }
+    return pages;
+  };
 
   return (
     <div className="ct-container">
@@ -209,11 +225,24 @@ const Table = ({
             Previous
           </button>
           
-          {Array.from({ length: Math.min(totalPages, 3) }).map((_, i) => {
-            const pageNum = i + 1;
+          {getPaginationItems().map((item, index) => {
+            if (item === 'left') {
+              return (
+                <button key={`left-${index}`} className="ct-page-btn ct-ellipsis" onClick={() => setCurrentPage(Math.max(1, currentPage - 5))}>
+                  <ChevronsLeft size={16} />
+                </button>
+              );
+            }
+            if (item === 'right') {
+              return (
+                <button key={`right-${index}`} className="ct-page-btn ct-ellipsis" onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 5))}>
+                  <ChevronsRight size={16} />
+                </button>
+              );
+            }
             return (
-              <button key={pageNum} className={`ct-page-btn ${currentPage === pageNum ? "active" : ""}`} onClick={() => setCurrentPage(pageNum)}>
-                {pageNum}
+              <button key={item} className={`ct-page-btn ${currentPage === item ? "active" : ""}`} onClick={() => setCurrentPage(item)}>
+                {item}
               </button>
             );
           })}
@@ -223,7 +252,18 @@ const Table = ({
           </button>
 
           <div className="ct-go-to">
-            Go to page <input type="text" />
+            Go to page <input 
+              type="number" 
+              min={1} 
+              max={totalPages}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const val = parseInt(e.target.value, 10);
+                  if (val >= 1 && val <= totalPages) setCurrentPage(val);
+                  e.target.value = '';
+                }
+              }} 
+            />
           </div>
         </div>
       </div>
