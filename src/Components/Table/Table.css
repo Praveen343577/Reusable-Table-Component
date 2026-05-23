@@ -1,0 +1,261 @@
+* {
+  user-select: none;
+}
+
+/* ===== Container & Theme Variables ===== */
+.ct-container {
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: var(--bw-400);
+  --row-bg: var(--bw-500);
+  --row-hover-bg: #f4f6f8;
+  --text-main: #000000;
+  --text-muted: var(--bw-200);
+  --radius-main: 20px;
+  --border-color: var(--bw-400);
+  --glow-color: var(--primary-color);
+
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  border-radius: var(--radius-main);
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+}
+
+/* ===== Table Wrapper & Core Table ===== */
+.ct-table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  max-height: calc(15 * 48px + 54px);
+}
+
+.ct-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+
+.ct-table th {
+  position: sticky;
+  top: 0;
+  background: rgba(107, 107, 107, 0.2);
+  backdrop-filter: blur(5px) saturate(150%);
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+  padding: 16px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  z-index: 5;
+  white-space: nowrap;
+  border-bottom: none;
+  box-shadow:
+    inset 0 -1px 0 var(--border-color),
+    0 4px 8px rgba(0, 0, 0, 0.02);
+}
+
+.ct-table td {
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-main);
+  white-space: nowrap;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.ct-table thead tr {
+  background: transparent;
+}
+
+.ct-table tbody tr {
+  background: var(--row-bg);
+}
+
+.ct-table tbody tr:hover {
+  background: var(--row-hover-bg);
+}
+
+/* ===== Checkbox ===== */
+.ct-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 114, 206, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  margin: 0;
+  display: block;
+}
+
+.ct-checkbox:checked {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ct-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ct-checkbox:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== Status Chips ===== */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-active {
+  color: var(--color-green);
+  background: rgba(52, 199, 89, 0.14);
+  border: 1.5px dashed rgba(52, 199, 89, 0.35);
+}
+.status-inactive {
+  color: var(--bw-300);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1.5px dashed rgba(176, 176, 176, 0.35);
+}
+.status-charging {
+  color: var(--primary-color);
+  background: rgba(0, 114, 188, 0.14);
+  border: 1.5px dashed rgba(0, 114, 188, 0.35);
+}
+.status-maintenance {
+  color: #f5a623;
+  background: rgba(245, 166, 35, 0.14);
+  border: 1.5px dashed rgba(245, 166, 35, 0.35);
+}
+.status-fault {
+  color: var(--color-red);
+  background: rgba(255, 45, 85, 0.14);
+  border: 1.5px dashed rgba(255, 45, 85, 0.35);
+}
+
+/* ===== Shared Button ===== */
+.ct-btn {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--bw-400);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.ct-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0093af;
+  border-color: #0093af !important;
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+/* ======================================================
+   GLASS DROPDOWN — Write once, use everywhere
+   Used by: ColumnToggle, Filter, Pagination rows-per-page
+   ====================================================== */
+.ct-glass-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  padding: 12px;
+  z-index: 50;
+  animation: ct-dropdown-enter 0.18s ease;
+}
+
+@keyframes ct-dropdown-enter {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ct-glass-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--text-main);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.ct-glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.ct-glass-dropdown-item.active {
+  color: #0093af;
+  font-weight: 600;
+  background: rgba(0, 147, 175, 0.08);
+}
+
+/* ===== Shared interactive element border rules ===== */
+.ct-search-input,
+.ct-btn,
+.ct-page-btn,
+.ct-go-to input,
+.ct-rows-trigger {
+  border: 1px solid var(--bw-400) !important;
+  transition: all 0.2s ease;
+}
+
+.ct-search-input:focus,
+.ct-search-input:active,
+.ct-btn:focus,
+.ct-btn:active,
+.ct-page-btn:focus:not(:disabled),
+.ct-page-btn:active:not(:disabled),
+.ct-page-btn.active,
+.ct-go-to input:focus,
+.ct-go-to input:active,
+.ct-rows-trigger:focus,
+.ct-rows-trigger:active {
+  border: 1px solid var(--primary-color) !important;
+  box-shadow: 0 0 0 1px var(--primary-color);
+  outline: none;
+}

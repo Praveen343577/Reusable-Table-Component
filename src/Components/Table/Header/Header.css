@@ -1,0 +1,26 @@
+.ct-th-sortable {
+  cursor: pointer;
+  background: var(--glass-bg);
+}
+
+.ct-th-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ct-sort-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+.ct-th-sortable:hover .ct-sort-icons {
+  color: #0093af;
+  transition: color 0.2s ease;
+}
+
+.ct-sort-icons.active {
+  color: #0093af;
+}

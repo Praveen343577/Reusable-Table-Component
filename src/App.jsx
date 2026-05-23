@@ -1,6 +1,6 @@
 // src/App.jsx
 import { useState } from 'react';
-import Table from './Components/Table';
+import Table from './Components/Table/Table';
 import mockData from './Data/mockTableData.json'
 
 function App() {

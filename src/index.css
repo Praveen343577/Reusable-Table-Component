@@ -31,7 +31,7 @@ body.dark {
 }
 
 /* Blurred Motion Orbs */
-/* body::before,
+body::before,
 body::after {
   content: '';
   position: fixed;
@@ -41,7 +41,7 @@ body::after {
   animation: float 20s ease-in-out infinite alternate;
   pointer-events: none;
   will-change: transform;
-} */
+}
 
 body::before {
   width: 20vw;
@@ -71,7 +71,7 @@ body.dark::after {
 }
 
 /* Sharp Motion Line (Light Ray) */
-/* #root::before {
+#root::before {
   content: '';
   position: fixed;
   top: -50%;
@@ -90,7 +90,7 @@ body.dark::after {
   animation: sweep 8s infinite linear;
   pointer-events: none;
   mix-blend-mode: overlay;
-} */
+}
 
 body.dark #root::before {
   background: linear-gradient(
