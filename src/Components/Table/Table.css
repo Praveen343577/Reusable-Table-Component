@@ -191,7 +191,7 @@
   top: calc(100% + 8px);
   right: 0;
   min-width: 200px;
-  background: rgba(255, 255, 255);
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);

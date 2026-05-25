@@ -3,11 +3,19 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px 0 24px;
+  position: relative;
+  z-index: 100;
+}
+
+.ct-toolbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border-bottom: 1px solid var(--glass-border);
-  z-index: 10;
+  z-index: -1;
 }
 
 .ct-tabs {

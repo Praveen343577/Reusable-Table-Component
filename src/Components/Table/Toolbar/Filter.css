@@ -1,7 +1,7 @@
 .ct-filter-dropdown {
   min-width: 260px;
-  right: auto;
-  left: 0;
+  right: 100%;
+  left: auto;
 }
 
 .ct-filter-header {
@@ -71,6 +71,7 @@
 
 .ct-filter-column-header.expanded {
   background: rgba(0, 147, 175, 0.06);
+  border-radius: 8px;
 }
 
 .ct-filter-column-header.has-filter {
@@ -125,10 +126,10 @@
 .ct-filter-values {
   position: absolute;
   top: -8px;
-  right: 100%;
-  left: auto;
-  margin-right: 4px;
-  width: 220px;
+  left: 100%;
+  right: auto;
+  margin-left: 8px;
+  width: 200px;
   background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -159,7 +160,7 @@
 }
 
 .ct-filter-values-list {
-  max-height: 180px;
+  max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
 }

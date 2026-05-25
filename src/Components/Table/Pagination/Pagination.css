@@ -3,17 +3,24 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
+  position: relative;
+  z-index: 100;
+}
+
+.ct-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: var(--glass-bg);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border-top: 1px solid var(--border-color);
-  z-index: 10;
+  z-index: -1;
 }
 
 .ct-showing-text {
   font-size: 14px;
-  color: var(--text-main);
-  opacity: 0.8;
+  color: #555555;
   display: flex;
   align-items: center;
   gap: 12px;
