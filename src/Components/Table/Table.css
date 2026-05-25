@@ -109,7 +109,7 @@
   content: "";
   position: absolute;
   left: 6px;
-  top: 3px;
+  top: 2px;
   width: 5px;
   height: 10px;
   border: solid white;
@@ -215,7 +215,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 8px;
   font-size: 14px;
   color: var(--text-main);
   cursor: pointer;
@@ -225,6 +225,7 @@
   border: none;
   width: 100%;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .ct-glass-dropdown-item:hover {
