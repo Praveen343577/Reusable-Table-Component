@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { Filter as FilterIcon, ChevronDown } from 'lucide-react';
+import { Filter as FilterIcon, ChevronRight } from 'lucide-react';
 import './Filter.css';
 
 const Filter = ({ columns, data, filters, onFilterChange }) => {
@@ -107,7 +107,7 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
                           </button>
                         </>
                       )}
-                      <ChevronDown size={14} className={`ct-filter-chevron ${isExpanded ? 'rotated' : ''}`} />
+                      <ChevronRight size={14} className={`ct-filter-chevron ${isExpanded ? 'active' : ''}`} />
                     </div>
                   </button>
 

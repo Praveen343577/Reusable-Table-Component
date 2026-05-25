@@ -1,7 +1,5 @@
 .ct-filter-dropdown {
   min-width: 260px;
-  max-height: 420px;
-  overflow-y: auto;
   right: auto;
   left: 0;
 }
@@ -44,6 +42,7 @@
 
 .ct-filter-column {
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
 }
 
 .ct-filter-column:last-child {
@@ -118,12 +117,24 @@
   color: var(--text-muted);
 }
 
-.ct-filter-chevron.rotated {
-  transform: rotate(180deg);
+.ct-filter-chevron.active {
+  color: #0093af;
 }
 
 .ct-filter-values {
-  padding: 0 8px 8px 8px;
+  position: absolute;
+  top: -8px;
+  right: 100%;
+  left: auto;
+  margin-right: 4px;
+  width: 220px;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  z-index: 60;
+  animation: ct-dropdown-enter 0.15s ease;
 }
 
 .ct-filter-search-input {
@@ -149,6 +160,7 @@
 .ct-filter-values-list {
   max-height: 180px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .ct-filter-values-list::-webkit-scrollbar {
