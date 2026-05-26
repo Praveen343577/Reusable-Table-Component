@@ -112,7 +112,7 @@ function App() {
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
       
       {/* Live Indicator */}
-      <div style={{ position: 'absolute', top: '24px', right: '40px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.8)', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', backdropFilter: 'blur(10px)' }}>
+      {/* <div style={{ position: 'absolute', top: '24px', right: '40px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.8)', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', backdropFilter: 'blur(10px)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: isConnected ? '#15803d' : '#b91c1c' }}>
           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: isConnected ? '#22c55e' : '#ef4444', boxShadow: isConnected ? '0 0 8px #22c55e' : 'none' }} />
           {isConnected ? 'LIVE' : 'CONNECTING...'}
@@ -122,7 +122,7 @@ function App() {
             Updated: {lastUpdate.toLocaleTimeString()}
           </div>
         )}
-      </div>
+      </div> */}
 
       <section style={{ height: '900px', width: '100%', maxWidth: '1833px', margin: '0 auto' }}>
         <Table
