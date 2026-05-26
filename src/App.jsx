@@ -52,7 +52,7 @@ function App() {
       key: 'speed', 
       header: 'Speed',
       render: (row, prevRow) => {
-        const delta = prevRow ? getDelta(row.speed, prevRow.speed) : null;
+        const delta = getDelta(row.speed, prevRow?.speed);
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span>{row.speed}</span>
@@ -90,7 +90,7 @@ function App() {
               />
             </svg>
             <span>{row.soc}</span>
-            {prevRow && <DeltaPill delta={getDelta(row.soc, prevRow.soc)} unit="%" />}
+            <DeltaPill delta={getDelta(row.soc, prevRow?.soc)} unit="%" />
           </div>
         );
       }
@@ -101,7 +101,7 @@ function App() {
       key: 'temperature', 
       header: 'Temperature',
       render: (row, prevRow) => {
-        const delta = prevRow ? getDelta(row.temperature, prevRow.temperature) : null;
+        const delta = getDelta(row.temperature, prevRow?.temperature);
         return (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <span>{row.temperature}</span>

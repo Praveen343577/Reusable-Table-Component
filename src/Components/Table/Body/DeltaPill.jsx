@@ -1,34 +1,35 @@
-import { useEffect, useState } from 'react';
 import './DeltaPill.css';
 
 const DeltaPill = ({ delta, unit }) => {
-  const [visible, setVisible] = useState(false);
+  if (!delta) return null;
 
-  useEffect(() => {
-    if (delta) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        setVisible(false);
-      }, 4000); // fade out after 4 seconds
-      return () => clearTimeout(timer);
-    }
-  }, [delta]);
+  const { value, direction } = delta;
 
-  if (!delta || !visible) return null;
+  if (direction === 'none') {
+    return (
+      <span className="ct-delta-pill ct-delta-neutral">
+        <span className="ct-delta-value">--</span>
+      </span>
+    );
+  }
 
-  const isUp = delta.direction === 'up';
+  if (direction === 'same') {
+    return (
+      <span className="ct-delta-pill ct-delta-neutral">
+        <span className="ct-delta-value">0{unit}</span>
+      </span>
+    );
+  }
+
+  const isUp = direction === 'up';
+  let formattedValue = value;
   
-  // Format the value based on unit.
-  // For %, we just append %. For temp, append °C. For speed, append km/h.
-  let formattedValue = delta.value;
-  // If it's a float, fix it to 1 decimal place if it has fractional parts.
-  if (formattedValue % 1 !== 0) {
+  if (typeof formattedValue === 'number' && formattedValue % 1 !== 0) {
       formattedValue = formattedValue.toFixed(1);
   }
 
   return (
     <span className={`ct-delta-pill ${isUp ? 'ct-delta-up' : 'ct-delta-down'}`}>
-      <span className="ct-delta-icon">{isUp ? '▲' : '▼'}</span>
       <span className="ct-delta-value">
         {isUp ? '+' : '-'}{formattedValue}{unit}
       </span>

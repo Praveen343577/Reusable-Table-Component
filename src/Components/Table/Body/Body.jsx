@@ -1,19 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow }) => {
-  const [flash, setFlash] = useState(false);
-
-  useEffect(() => {
-    // If the row object reference changed and we have a previous row, it means it updated
-    if (prevRow && row !== prevRow) {
-      setFlash(true);
-      const timer = setTimeout(() => setFlash(false), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [row, prevRow]);
-
   return (
-    <tr className={flash ? 'ct-row-flash' : ''}>
+    <tr>
       <td>
         <input
           type="checkbox"

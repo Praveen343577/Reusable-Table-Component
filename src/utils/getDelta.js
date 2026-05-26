@@ -1,19 +1,21 @@
 export const getDelta = (currentStr, prevStr) => {
-  if (prevStr === undefined || prevStr === null) return null;
-  if (currentStr === prevStr) return null;
-
   const extractNumber = (str) => {
-    const match = str.match(/-?\d+(\.\d+)?/);
+    if (!str) return null;
+    const match = String(str).match(/-?\d+(\.\d+)?/);
     return match ? parseFloat(match[0]) : null;
   };
 
   const curr = extractNumber(currentStr);
   const prev = extractNumber(prevStr);
 
-  if (curr === null || prev === null) return null;
+  if (curr === null || prev === null) {
+    return { value: '--', direction: 'none' };
+  }
   
   const diff = curr - prev;
-  if (diff === 0) return null;
+  if (diff === 0) {
+    return { value: 0, direction: 'same' };
+  }
 
   return {
     value: Math.abs(diff),
