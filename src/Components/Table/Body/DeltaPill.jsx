@@ -8,7 +8,7 @@ const DeltaPill = ({ delta, unit }) => {
   if (direction === 'none') {
     return (
       <span className="ct-delta-pill ct-delta-neutral">
-        <span className="ct-delta-value">--</span>
+        <span className="ct-delta-value">~</span>
       </span>
     );
   }
@@ -26,6 +26,7 @@ const DeltaPill = ({ delta, unit }) => {
 
   return (
     <span className={`ct-delta-pill ${isUp ? 'ct-delta-up' : 'ct-delta-down'}`}>
+      <span className="ct-delta-icon">{isUp ? '⇑' : '⇓'}</span>
       <span className="ct-delta-value">
         {isUp ? '+' : '-'}{formattedValue}{unit}
       </span>
