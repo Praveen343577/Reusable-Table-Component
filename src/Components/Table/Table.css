@@ -263,3 +263,14 @@
   box-shadow: 0 0 0 1px var(--primary-color);
   outline: none;
 }
+
+/* ===== Row Flash Animation ===== */
+@keyframes ct-flash {
+  0% { background-color: rgba(0, 147, 175, 0.2); }
+  100% { background-color: transparent; }
+}
+
+.ct-row-flash {
+  animation: ct-flash 1.5s ease-out;
+}
+

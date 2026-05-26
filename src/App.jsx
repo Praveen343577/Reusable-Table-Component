@@ -1,9 +1,13 @@
 // src/App.jsx
 import { useState } from 'react';
 import Table from './Components/Table/Table';
-import mockData from './Data/mockTableData.json'
+import { useWebSocket } from './hooks/useWebSocket';
+import { getDelta } from './utils/getDelta';
+import DeltaPill from './Components/Table/Body/DeltaPill';
 
 function App() {
+  const { liveData, prevData, isConnected, lastUpdate } = useWebSocket();
+
   const tableColumns = [
     { key: 'vrn', header: 'VRN/Chassis no.' },
     { key: 'type', header: 'Vehicle Type' },
@@ -44,11 +48,23 @@ function App() {
       }
     },
     { key: 'fleet', header: 'Fleet' },
-    { key: 'speed', header: 'Speed' },
+    { 
+      key: 'speed', 
+      header: 'Speed',
+      render: (row, prevRow) => {
+        const delta = prevRow ? getDelta(row.speed, prevRow.speed) : null;
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{row.speed}</span>
+            <DeltaPill delta={delta} unit=" km/h" />
+          </div>
+        );
+      }
+    },
     { 
       key: 'soc', 
       header: 'SOC',
-      render: (row) => {
+      render: (row, prevRow) => {
         const val = parseInt(row.soc, 10);
         let color = '#34c759'; // Green
         if (val < 20) color = '#ff2d55'; // Red
@@ -74,13 +90,26 @@ function App() {
               />
             </svg>
             <span>{row.soc}</span>
+            {prevRow && <DeltaPill delta={getDelta(row.soc, prevRow.soc)} unit="%" />}
           </div>
         );
       }
     },
     { key: 'odometer', header: 'Odometer' },
     { key: 'dte', header: 'DTE' },
-    { key: 'temperature', header: 'Temperature' }
+    { 
+      key: 'temperature', 
+      header: 'Temperature',
+      render: (row, prevRow) => {
+        const delta = prevRow ? getDelta(row.temperature, prevRow.temperature) : null;
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{row.temperature}</span>
+            <DeltaPill delta={delta} unit=" °C" />
+          </div>
+        );
+      }
+    }
   ];
 
   const tabs = [
@@ -90,11 +119,26 @@ function App() {
   ];
 
   return (
-    <div style={{ height: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+      
+      {/* Live Indicator */}
+      <div style={{ position: 'absolute', top: '24px', right: '40px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.8)', padding: '8px 16px', borderRadius: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', backdropFilter: 'blur(10px)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: isConnected ? '#15803d' : '#b91c1c' }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: isConnected ? '#22c55e' : '#ef4444', boxShadow: isConnected ? '0 0 8px #22c55e' : 'none' }} />
+          {isConnected ? 'LIVE' : 'CONNECTING...'}
+        </div>
+        {lastUpdate && (
+          <div style={{ fontSize: '12px', color: '#64748b', borderLeft: '1px solid #e2e8f0', paddingLeft: '12px' }}>
+            Updated: {lastUpdate.toLocaleTimeString()}
+          </div>
+        )}
+      </div>
+
       <section style={{ height: '900px', width: '100%', maxWidth: '1833px', margin: '0 auto' }}>
         <Table
           columns={tableColumns}
-          data={mockData}
+          data={liveData}
+          prevData={prevData}
           tabs={tabs}
           defaultTab="ALL"
         />

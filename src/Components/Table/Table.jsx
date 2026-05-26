@@ -24,6 +24,7 @@ const Table = ({
   columns = [],
   tabs = [],
   defaultTab = '',
+  prevData = null,
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || (tabs[0]?.label || ''));
   const [hiddenColumns, setHiddenColumns] = useState([]);
@@ -118,6 +119,7 @@ const Table = ({
           />
           <Body
             currentData={currentData}
+            prevData={prevData}
             visibleCols={visibleCols}
             selectedIds={selectedIds}
             onToggleSelectRow={toggleSelectRow}
