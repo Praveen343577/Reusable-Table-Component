@@ -9,20 +9,16 @@ function App() {
   const { liveData, prevData, isConnected, lastUpdate } = useWebSocket();
 
   const tableColumns = [
-    { key: 'vrn', header: 'VRN/Chassis no.' },
-    { key: 'type', header: 'Vehicle Type' },
-    { 
-      key: 'status', 
-      header: 'Status',
+    { key: 'vrn', header: 'VRN/Chassis no.', width: '9rem' },
+    { key: 'type', header: 'Vehicle Type', width: '7rem' },
+    { key: 'status', header: 'Status', width: '8rem',
       render: (row) => (
         <span className={`status-chip status-${row.status.toLowerCase()}`}>
           {row.status}
         </span>
       )
     },
-    { 
-      key: 'driver', 
-      header: 'Driver',
+    { key: 'driver', header: 'Driver', width: '12rem',
       render: (row) => {
         const initials = row.driver.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         return (
@@ -47,10 +43,8 @@ function App() {
         );
       }
     },
-    { key: 'fleet', header: 'Fleet' },
-    { 
-      key: 'speed', 
-      header: 'Speed',
+    { key: 'fleet', header: 'Fleet', width: '7rem' },
+    { key: 'speed', header: 'Speed', width: '9rem',
       render: (row, prevRow) => {
         const delta = getDelta(row.speed, prevRow?.speed);
         return (
@@ -61,9 +55,7 @@ function App() {
         );
       }
     },
-    { 
-      key: 'soc', 
-      header: 'SOC',
+    { key: 'soc', header: 'SOC', width: '9rem',
       render: (row, prevRow) => {
         const val = parseInt(row.soc, 10);
         let color = '#34c759'; // Green
@@ -95,11 +87,9 @@ function App() {
         );
       }
     },
-    { key: 'odometer', header: 'Odometer' },
-    { key: 'dte', header: 'DTE' },
-    { 
-      key: 'temperature', 
-      header: 'Temperature',
+    { key: 'odometer', header: 'Odometer', width: '7rem' },
+    { key: 'dte', header: 'DTE', width: '6rem' },
+    { key: 'temperature', header: 'Temperature', width: '11rem',
       render: (row, prevRow) => {
         const delta = getDelta(row.temperature, prevRow?.temperature);
         return (

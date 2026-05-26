@@ -23,7 +23,7 @@ export const useWebSocket = () => {
         prevDataRef.current = currentData;
 
         // Pick random rows to update (e.g., 5% of active fleet)
-        const updateCount = Math.floor(currentData.length * 0.05);
+        const updateCount = Math.floor(currentData.length * 0.7);
         const indicesToUpdate = new Set();
         while (indicesToUpdate.size < updateCount) {
           indicesToUpdate.add(Math.floor(Math.random() * currentData.length));
@@ -33,7 +33,7 @@ export const useWebSocket = () => {
           if (!indicesToUpdate.has(index)) return row;
 
           const updatedRow = { ...row };
-          
+
           // Helper to extract number and unit
           const parseValue = (str) => {
             const match = str.match(/(-?\d+(\.\d+)?)\s*(.*)/);
