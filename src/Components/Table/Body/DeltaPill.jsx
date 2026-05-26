@@ -14,11 +14,7 @@ const DeltaPill = ({ delta, unit }) => {
   }
 
   if (direction === 'same') {
-    return (
-      <span className="ct-delta-pill ct-delta-neutral">
-        <span className="ct-delta-value">0{unit}</span>
-      </span>
-    );
+    return null;
   }
 
   const isUp = direction === 'up';
