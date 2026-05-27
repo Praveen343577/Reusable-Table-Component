@@ -1,14 +1,16 @@
-const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow }) => {
+const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, showRowSelection }) => {
   return (
     <tr>
-      <td>
-        <input
-          type="checkbox"
-          className="ct-checkbox"
-          checked={selectedIds.includes(row.id)}
-          onChange={() => onToggleSelectRow(row.id)}
-        />
-      </td>
+      {showRowSelection && (
+        <td>
+          <input
+            type="checkbox"
+            className="ct-checkbox"
+            checked={selectedIds.includes(row.id)}
+            onChange={() => onToggleSelectRow(row.id)}
+          />
+        </td>
+      )}
       {visibleCols.map((col) => (
         <td key={`${row.id}-${col.key}`}>
           {col.render ? col.render(row, prevRow) : row[col.key]}
@@ -18,12 +20,12 @@ const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow }) 
   );
 };
 
-const Body = ({ currentData, visibleCols, selectedIds, onToggleSelectRow, prevData }) => {
+const Body = ({ currentData, visibleCols, selectedIds, onToggleSelectRow, prevData, showRowSelection = true }) => {
   return (
     <tbody>
       {currentData.length === 0 ? (
         <tr>
-          <td colSpan={visibleCols.length + 1} style={{ textAlign: 'center', padding: '40px' }}>
+          <td colSpan={visibleCols.length + (showRowSelection ? 1 : 0)} style={{ textAlign: 'center', padding: '40px' }}>
             No records found.
           </td>
         </tr>
@@ -38,6 +40,7 @@ const Body = ({ currentData, visibleCols, selectedIds, onToggleSelectRow, prevDa
               visibleCols={visibleCols}
               selectedIds={selectedIds}
               onToggleSelectRow={onToggleSelectRow}
+              showRowSelection={showRowSelection}
             />
           );
         })
@@ -47,3 +50,4 @@ const Body = ({ currentData, visibleCols, selectedIds, onToggleSelectRow, prevDa
 };
 
 export default Body;
+

@@ -108,6 +108,33 @@ function App() {
     { label: 'Inactive', count: 200 }
   ];
 
+  // Feature 2 & 3: Filter configuration
+  const filterConfig = {
+    speed: {
+      type: 'range',
+      valueExtractor: (val) => parseInt(val),
+      ranges: [
+        { label: '0 km/h', min: 0, max: 0 },
+        { label: '1–25 km/h', min: 1, max: 25 },
+        { label: '26–50 km/h', min: 26, max: 50 },
+        { label: '>50 km/h', min: 51, max: Infinity },
+      ],
+      searchable: false,
+    },
+    status: {
+      type: 'exact',
+      searchable: true,
+    },
+    fleet: {
+      type: 'exact',
+      searchable: false,
+    },
+    driver: {
+      type: 'exact',
+      searchable: true,
+    },
+  };
+
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
 
@@ -118,6 +145,20 @@ function App() {
           prevData={prevData}
           tabs={tabs}
           defaultTab="ALL"
+          showTabs={true}
+          title="Vehicle Status"
+          subtitle="Real-time fleet monitoring"
+          // Feature 4: Toolbar button visibility
+          showSearch={true}
+          showFilter={true}
+          showColumnToggle={true}
+          showExport={true}
+          // Feature 6: Row selection
+          showRowSelection={false}
+          // Feature 1: Only these columns appear in the filter dropdown
+          filterableColumns={['status', 'fleet', 'speed', 'driver']}
+          // Feature 2 & 3: Range filters + search toggle
+          filterConfig={filterConfig}
         />
       </section>
     </div>
