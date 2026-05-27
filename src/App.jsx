@@ -136,9 +136,9 @@ function App() {
   };
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', padding: '1rem', boxSizing: 'border-box' }}>
 
-      <section style={{ height: '900px', width: '100%', maxWidth: '1833px', margin: '0 auto' }}>
+      <section style={{ height: '90vh', minHeight: '30rem', width: '100%', maxWidth: '115rem', margin: '0 auto', display: 'flex', flexDirection: 'column' }}>
         <Table
           columns={tableColumns}
           data={liveData}

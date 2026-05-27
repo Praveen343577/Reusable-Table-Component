@@ -6,11 +6,11 @@
 
 .ct-search-input {
   background: rgba(255, 255, 255, 0.6);
-  border-radius: 8px;
-  padding: 8px 12px 8px 36px;
-  font-size: 14px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+  font-size: 0.875rem;
   color: var(--text-main);
-  max-width: 240px;
+  max-width: 15rem;
   outline: none;
   transition: all 0.2s;
 }
@@ -40,8 +40,26 @@
 
 .ct-search-icon {
   position: absolute;
-  left: 12px;
+  left: 0.75rem;
   color: rgba(0, 0, 0, 0.4);
   transition: color 0.2s ease;
   pointer-events: none;
+}
+
+@media (max-width: 72rem) {
+  .ct-search-input {
+    max-width: 12rem;
+    padding: 0.4rem 0.5rem 0.4rem 1.8rem;
+    font-size: 0.75rem;
+  }
+  .ct-search-icon {
+    left: 0.5rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .ct-search-input {
+    max-width: 100%;
+    width: 100%;
+  }
 }
