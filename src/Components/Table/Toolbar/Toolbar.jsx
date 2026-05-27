@@ -1,9 +1,9 @@
 import './Toolbar.css';
 
-const Toolbar = ({ tabs, activeTab, onTabChange, children }) => {
+const Toolbar = ({ tabs, activeTab, onTabChange, showTabs = true, title, subtitle, children }) => {
   return (
     <div className="ct-toolbar">
-      {tabs.length > 0 && (
+      {showTabs && tabs.length > 0 ? (
         <div className="ct-tabs">
           {tabs.map((tab) => (
             <button
@@ -15,12 +15,20 @@ const Toolbar = ({ tabs, activeTab, onTabChange, children }) => {
             </button>
           ))}
         </div>
+      ) : (
+        <div className="ct-toolbar-title-block">
+          {title && <h2 className="ct-toolbar-title">{title}</h2>}
+          {subtitle && <p className="ct-toolbar-subtitle">{subtitle}</p>}
+        </div>
       )}
-      <div className="ct-toolbar-actions">
-        {children}
-      </div>
+      {children && (
+        <div className="ct-toolbar-actions">
+          {children}
+        </div>
+      )}
     </div>
   );
 };
 
 export default Toolbar;
+

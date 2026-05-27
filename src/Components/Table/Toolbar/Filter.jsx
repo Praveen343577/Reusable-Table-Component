@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { Filter as FilterIcon, ChevronRight } from 'lucide-react';
 import './Filter.css';
 
-const Filter = ({ columns, data, filters, onFilterChange }) => {
+const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedColumn, setExpandedColumn] = useState(null);
   const [filterSearch, setFilterSearch] = useState('');
@@ -20,15 +20,18 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Get unique values for each column from the data
+  // Get unique values for each exact-type column from the data
   const columnValues = useMemo(() => {
     const values = {};
     columns.forEach((col) => {
+      const config = filterConfig[col.key];
+      // Skip range-type columns — they use config.ranges instead
+      if (config?.type === 'range') return;
       const uniqueVals = [...new Set(data.map((row) => String(row[col.key])))].filter(Boolean).sort();
       values[col.key] = uniqueVals;
     });
     return values;
-  }, [columns, data]);
+  }, [columns, data, filterConfig]);
 
   const activeFilterCount = Object.keys(filters).length;
 
@@ -49,12 +52,26 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
     Object.keys(filters).forEach((key) => onFilterChange(key, []));
   };
 
-  // Filter values within expanded column by search
-  const getFilteredValues = (columnKey) => {
-    const values = columnValues[columnKey] || [];
+  // Get display options for a column (range labels or filtered exact values)
+  const getDisplayOptions = (col) => {
+    const config = filterConfig[col.key];
+    if (config?.type === 'range' && config.ranges) {
+      const labels = config.ranges.map((r) => r.label);
+      if (!filterSearch.trim()) return labels;
+      const lower = filterSearch.toLowerCase();
+      return labels.filter((l) => l.toLowerCase().includes(lower));
+    }
+    const values = columnValues[col.key] || [];
     if (!filterSearch.trim()) return values;
     const lower = filterSearch.toLowerCase();
     return values.filter((v) => v.toLowerCase().includes(lower));
+  };
+
+  // Check if search is enabled for a column
+  const isSearchable = (colKey) => {
+    const config = filterConfig[colKey];
+    if (!config || config.searchable === undefined) return true; // default true
+    return config.searchable;
   };
 
   return (
@@ -82,7 +99,8 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
             {columns.map((col) => {
               const isExpanded = expandedColumn === col.key;
               const selectedValues = filters[col.key] || [];
-              const filteredValues = getFilteredValues(col.key);
+              const displayOptions = getDisplayOptions(col);
+              const searchable = isSearchable(col.key);
 
               return (
                 <div key={col.key} className="ct-filter-column">
@@ -113,19 +131,21 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
 
                   {isExpanded && (
                     <div className="ct-filter-values">
-                      <input
-                        type="text"
-                        className="ct-filter-search-input"
-                        placeholder={`Search ${col.header}...`}
-                        value={filterSearch}
-                        onChange={(e) => setFilterSearch(e.target.value)}
-                        autoFocus
-                      />
+                      {searchable && (
+                        <input
+                          type="text"
+                          className="ct-filter-search-input"
+                          placeholder={`Search ${col.header}...`}
+                          value={filterSearch}
+                          onChange={(e) => setFilterSearch(e.target.value)}
+                          autoFocus
+                        />
+                      )}
                       <div className="ct-filter-values-list">
-                        {filteredValues.length === 0 ? (
+                        {displayOptions.length === 0 ? (
                           <div className="ct-filter-no-results">No matches</div>
                         ) : (
-                          filteredValues.map((val) => (
+                          displayOptions.map((val) => (
                             <label key={val} className="ct-glass-dropdown-item ct-filter-value-item">
                               <input
                                 type="checkbox"
@@ -151,3 +171,4 @@ const Filter = ({ columns, data, filters, onFilterChange }) => {
 };
 
 export default Filter;
+

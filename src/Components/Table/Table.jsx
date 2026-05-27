@@ -25,20 +25,51 @@ const Table = ({
   tabs = [],
   defaultTab = '',
   prevData = null,
+  // Feature 5: Tabs vs Title/Subtitle
+  showTabs = true,
+  title = '',
+  subtitle = '',
+  // Feature 4: Toolbar button visibility
+  showSearch = true,
+  showFilter = true,
+  showColumnToggle = true,
+  showExport = true,
+  // Feature 6: Row selection toggle
+  showRowSelection = true,
+  // Feature 1: Explicit filterable columns
+  filterableColumns,
+  // Feature 2 & 3: Filter config (range, searchable)
+  filterConfig = {},
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || (tabs[0]?.label || ''));
   const [hiddenColumns, setHiddenColumns] = useState([]);
 
+  // Dev-mode warnings for invalid filterableColumns keys
+  if (process.env.NODE_ENV === 'development' && filterableColumns) {
+    filterableColumns.forEach((key) => {
+      if (!columns.find((c) => c.key === key)) {
+        console.warn(`[Table] filterableColumns: "${key}" not found in columns`);
+      }
+    });
+  }
+
   const { searchQuery, setSearchQuery, filterBySearch, resetSearch } = useSearch();
   const { sortConfig, handleSort, sortData, resetSort } = useSort();
-  const { filters, setColumnFilter, filterData, resetFilters } = useFilter();
+  const { filters, setColumnFilter, filterData, resetFilters } = useFilter(filterConfig);
   const { selectedIds, toggleSelectAll, toggleSelectRow, resetSelection } = useSelection();
 
-  // Tab filter
+  // Compute filterable columns list
+  const filterableCols = useMemo(() => {
+    if (!filterableColumns || filterableColumns.length === 0) return columns;
+    return columns.filter((col) => filterableColumns.includes(col.key));
+  }, [columns, filterableColumns]);
+
+  // Tab filter — skip when tabs are hidden
   const tabFilteredData = useMemo(() => {
+    if (!showTabs) return data;
     if (!activeTab || activeTab === 'ALL' || activeTab === 'All') return data;
     return data.filter((row) => row.status === activeTab);
-  }, [data, activeTab]);
+  }, [data, activeTab, showTabs]);
 
   // Pipeline: tab → search → column filter → sort
   const processedData = useMemo(() => {
@@ -89,23 +120,41 @@ const Table = ({
 
   const allSelected = currentData.length > 0 && currentData.every((row) => selectedIds.includes(row.id));
 
+  const hasToolbarActions = showSearch || showFilter || showColumnToggle || showExport;
+
   return (
     <div className="ct-container">
-      <Toolbar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange}>
-        <Search value={searchQuery} onChange={handleSearchChange} />
-        <Filter
-          columns={columns}
-          data={tabFilteredData}
-          filters={filters}
-          onFilterChange={setColumnFilter}
-        />
-        <ColumnToggle
-          columns={columns}
-          hiddenColumns={hiddenColumns}
-          onToggleColumn={toggleColumn}
-        />
-        <Export onExport={() => {}} />
-        <Refresh onRefresh={handleRefresh} />
+      <Toolbar
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        showTabs={showTabs}
+        title={title}
+        subtitle={subtitle}
+      >
+        {hasToolbarActions && (
+          <>
+            {showSearch && <Search value={searchQuery} onChange={handleSearchChange} />}
+            {showFilter && (
+              <Filter
+                columns={filterableCols}
+                data={tabFilteredData}
+                filters={filters}
+                onFilterChange={setColumnFilter}
+                filterConfig={filterConfig}
+              />
+            )}
+            {showColumnToggle && (
+              <ColumnToggle
+                columns={columns}
+                hiddenColumns={hiddenColumns}
+                onToggleColumn={toggleColumn}
+              />
+            )}
+            {showExport && <Export onExport={() => {}} />}
+            <Refresh onRefresh={handleRefresh} />
+          </>
+        )}
       </Toolbar>
 
       <div className="ct-table-wrapper">
@@ -116,6 +165,7 @@ const Table = ({
             onSort={handleSort}
             allSelected={allSelected}
             onToggleSelectAll={() => toggleSelectAll(currentData)}
+            showRowSelection={showRowSelection}
           />
           <Body
             currentData={currentData}
@@ -123,6 +173,7 @@ const Table = ({
             visibleCols={visibleCols}
             selectedIds={selectedIds}
             onToggleSelectRow={toggleSelectRow}
+            showRowSelection={showRowSelection}
           />
         </table>
       </div>
@@ -146,6 +197,18 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   tabs: PropTypes.array,
   defaultTab: PropTypes.string,
+  prevData: PropTypes.array,
+  showTabs: PropTypes.bool,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  showSearch: PropTypes.bool,
+  showFilter: PropTypes.bool,
+  showColumnToggle: PropTypes.bool,
+  showExport: PropTypes.bool,
+  showRowSelection: PropTypes.bool,
+  filterableColumns: PropTypes.arrayOf(PropTypes.string),
+  filterConfig: PropTypes.object,
 };
 
 export default Table;
+

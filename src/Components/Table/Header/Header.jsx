@@ -1,18 +1,20 @@
 import { ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
 import './Header.css';
 
-const Header = ({ visibleCols, sortConfig, onSort, allSelected, onToggleSelectAll }) => {
+const Header = ({ visibleCols, sortConfig, onSort, allSelected, onToggleSelectAll, showRowSelection = true }) => {
   return (
     <thead>
       <tr>
-        <th style={{ width: '48px' }}>
-          <input
-            type="checkbox"
-            className="ct-checkbox"
-            checked={allSelected}
-            onChange={onToggleSelectAll}
-          />
-        </th>
+        {showRowSelection && (
+          <th style={{ width: '48px' }}>
+            <input
+              type="checkbox"
+              className="ct-checkbox"
+              checked={allSelected}
+              onChange={onToggleSelectAll}
+            />
+          </th>
+        )}
         {visibleCols.map((col) => (
           <th key={col.key} className="ct-th-sortable" onClick={() => onSort(col.key)} style={{ width: col.width }}>
             <div className="ct-th-content">
@@ -33,3 +35,4 @@ const Header = ({ visibleCols, sortConfig, onSort, allSelected, onToggleSelectAl
 };
 
 export default Header;
+
