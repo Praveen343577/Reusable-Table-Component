@@ -104,30 +104,34 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
 
               return (
                 <div key={col.key} className="ct-filter-column">
-                  <button
+                  <div
                     className={`ct-filter-column-header ${isExpanded ? 'expanded' : ''} ${selectedValues.length > 0 ? 'has-filter' : ''}`}
                     onClick={() => {
                       setExpandedColumn(isExpanded ? null : col.key);
                       setFilterSearch('');
                     }}
+                    role="button"
+                    tabIndex={0}
                   >
                     <span>{col.header}</span>
                     <div className="ct-filter-column-meta">
                       {selectedValues.length > 0 && (
                         <>
                           <span className="ct-filter-count">{selectedValues.length}</span>
-                          <button
+                          <div
                             className="ct-filter-clear-col-btn"
                             onClick={(e) => clearColumnFilter(col.key, e)}
                             title="Clear filter"
+                            role="button"
+                            tabIndex={0}
                           >
                             ×
-                          </button>
+                          </div>
                         </>
                       )}
                       <ChevronRight size={14} className={`ct-filter-chevron ${isExpanded ? 'active' : ''}`} />
                     </div>
-                  </button>
+                  </div>
 
                   {isExpanded && (
                     <div className="ct-filter-values">
