@@ -70,6 +70,16 @@
   gap: 0.5rem;
 }
 
+.ct-pagination-numbers {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ct-page-icon {
+  display: none;
+}
+
 .ct-page-btn {
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid var(--bw-400);
@@ -158,27 +168,33 @@
 
 @media (max-width: 48rem) {
   .ct-footer {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
   .ct-showing-text {
-    width: 100%;
-    justify-content: center;
+    width: auto;
   }
   .ct-pagination-controls {
+    width: auto;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
   }
   .ct-go-to {
-    width: 100%;
-    justify-content: center;
-    margin-left: 0;
+    width: auto;
+    margin-left: 0.5rem;
+  }
+  .ct-pagination-numbers {
+    display: none;
   }
 }
 
 @media (max-width: 64rem) {
   .ct-showing-label {
     display: none;
+  }
+  .ct-go-to input {
+    padding: 0.25rem 0.625rem;
   }
 }

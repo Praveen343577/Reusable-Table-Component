@@ -62,6 +62,8 @@ const Pagination = ({
           Previous
         </button>
 
+        <div className="ct-pagination-numbers">
+
         {paginationItems.map((item, index) => {
           if (item === 'left') {
             return (
@@ -83,6 +85,8 @@ const Pagination = ({
             </button>
           );
         })}
+
+        </div>
 
         <button className="ct-page-btn" disabled={currentPage === totalPages || totalPages === 0} onClick={() => setCurrentPage(prev => prev + 1)}>
           Next

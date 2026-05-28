@@ -307,7 +307,7 @@
 
 @media (max-width: 56rem) {
   .ct-table th {
-    padding: 0.5em 0.75em;
+    padding: 0.85em 0.75em;
     font-size: 0.7rem;
   }
   .ct-table td {
