@@ -322,4 +322,13 @@
   .status-fault {
     border: none;
   }
+  
+  /* Make toolbar action buttons icon-only */
+  .ct-btn-text {
+    display: none;
+  }
+  .ct-toolbar-actions .ct-btn {
+    padding: 0.4rem;
+    justify-content: center;
+  }
 }

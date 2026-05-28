@@ -74,8 +74,8 @@ const Export = ({ data, visibleCols, title }) => {
   };
 
   return (
-    <button className="ct-btn" onClick={handleExport}>
-      <Download size={16} /> Export
+    <button className="ct-btn" onClick={handleExport} title="Export">
+      <Download size={16} /> <span className="ct-btn-text">Export</span>
     </button>
   );
 };

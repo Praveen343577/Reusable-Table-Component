@@ -145,7 +145,7 @@ function App() {
           prevData={prevData}
           tabs={tabs}
           defaultTab="ALL"
-          showTabs={true}
+          showTabs={false}
           title="Vehicle Status"
           subtitle="Real-time fleet monitoring"
           // Feature 4: Toolbar button visibility

@@ -17,8 +17,8 @@ const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn }) => {
 
   return (
     <div style={{ position: 'relative' }} ref={menuRef}>
-      <button className="ct-btn" onClick={() => setShowMenu(!showMenu)}>
-        <Columns size={16} /> Columns
+      <button className="ct-btn" onClick={() => setShowMenu(!showMenu)} title="Columns">
+        <Columns size={16} /> <span className="ct-btn-text">Columns</span>
       </button>
       {showMenu && (
         <div className="ct-glass-dropdown">
