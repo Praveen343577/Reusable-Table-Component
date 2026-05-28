@@ -57,6 +57,12 @@
   }
 }
 
+@media (max-width: 64rem) {
+  .ct-search-input {
+    max-width: 4.5rem;
+  }
+}
+
 @media (max-width: 48rem) {
   .ct-search-input {
     max-width: 100%;

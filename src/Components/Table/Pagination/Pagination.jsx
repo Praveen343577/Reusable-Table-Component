@@ -26,8 +26,9 @@ const Pagination = ({
   return (
     <div className="ct-footer">
       <div className="ct-showing-text">
-        Showing {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} of {totalEntries} page
-
+        <span className="ct-showing-label">
+          Showing {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} of {totalEntries} page
+        </span>
         <div style={{ position: 'relative' }} ref={rowsDropdownRef}>
           <button
             className="ct-rows-trigger"
