@@ -134,7 +134,12 @@ const Table = ({
       >
         {hasToolbarActions && (
           <>
-            {showSearch && <Search value={searchQuery} onChange={handleSearchChange} />}
+            {showSearch && 
+              <Search 
+                value={searchQuery} 
+                onChange={handleSearchChange} 
+              />
+            }
             {showFilter && (
               <Filter
                 columns={filterableCols}
@@ -151,7 +156,13 @@ const Table = ({
                 onToggleColumn={toggleColumn}
               />
             )}
-            {showExport && <Export onExport={() => {}} />}
+            {showExport && 
+              <Export 
+                data={processedData} 
+                visibleCols={visibleCols} 
+                title={title} 
+              />
+            }
             <Refresh onRefresh={handleRefresh} />
           </>
         )}

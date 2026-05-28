@@ -29,7 +29,7 @@
 /* ===== Table Wrapper & Core Table ===== */
 .ct-table-wrapper {
   flex: 1;
-  min-height: 0;
+  min-height: 25rem;
   overflow-y: auto;
   overflow-x: auto;
   backdrop-filter: none;
@@ -314,5 +314,12 @@
     padding: 0.3em 0.75em;
     font-size: 0.75rem;
     height: 2rem;
+  }
+  .status-active,
+  .status-inactive,
+  .status-charging,
+  .status-maintenance,
+  .status-fault {
+    border: none;
   }
 }

@@ -6,7 +6,7 @@ import { getDelta } from './utils/getDelta';
 import DeltaPill from './Components/Table/Body/DeltaPill';
 
 function App() {
-  const { liveData, prevData, isConnected, lastUpdate } = useWebSocket();
+  const { liveData, prevData } = useWebSocket();
 
   const tableColumns = [
     { key: 'vrn', header: 'VRN/Chassis no.', width: '9rem' },
