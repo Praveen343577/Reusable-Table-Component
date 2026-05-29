@@ -22,20 +22,8 @@ function App() {
       render: (row) => {
         const initials = row.driver.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         return (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <div style={{
-              width: '27px',
-              height: '27px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(0, 146, 175, 0.1)',
-              border: "1.5px solid rgba(0, 146, 175, 0.2)",
-              color: '#0093af',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '12px',
-              fontWeight: '400'
-            }}>
+          <div className="driver-wrapper">
+            <div className="driver-avatar">
               {initials}
             </div>
             <span>{row.driver}</span>

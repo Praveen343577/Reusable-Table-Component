@@ -47,18 +47,21 @@
 }
 
 @media (max-width: 72rem) {
-  .ct-search-input {
-    max-width: 12rem;
-    padding: 0.5rem 0.5rem 0.4rem 1.8rem;
-    font-size: 0.75rem;
-  }
-  .ct-search-icon {
-    left: 0.5rem;
-  }
+  .ct-search-input { padding: 0.45rem 0.75rem 0.45rem 2rem; font-size: 0.8125rem; max-width: 12rem; }
+  .ct-search-icon { left: 0.65rem; }
 }
 
 @media (max-width: 64rem) {
-  .ct-search-input {
-    max-width: 4.5rem;
-  }
+  .ct-search-input { padding: 0.4rem 0.6rem 0.4rem 1.75rem; font-size: 0.75rem; max-width: 4.5rem; }
+  .ct-search-icon { left: 0.5rem; }
+}
+
+@media (max-width: 56rem) {
+  .ct-search-input { padding: 0.35rem 0.5rem 0.35rem 1.5rem; font-size: 0.7rem; max-width: 3.5rem; }
+  .ct-search-icon { left: 0.4rem; }
+}
+
+@media (max-width: 48rem) {
+  .ct-search-input { padding: 0.3rem 0.4rem 0.3rem 1.4rem; font-size: 0.65rem; max-width: 2.5rem; }
+  .ct-search-icon { left: 0.35rem; }
 }
