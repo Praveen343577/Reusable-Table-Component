@@ -133,7 +133,7 @@ function App() {
           prevData={prevData}
           tabs={tabs}
           defaultTab="ALL"
-          showTabs={false}
+          showTabs={true}
           title="Vehicle Status"
           subtitle="Real-time fleet monitoring"
           // Feature 4: Toolbar button visibility
@@ -142,7 +142,7 @@ function App() {
           showColumnToggle={true}
           showExport={true}
           // Feature 6: Row selection
-          showRowSelection={false}
+          showRowSelection={true}
           // Feature 1: Only these columns appear in the filter dropdown
           filterableColumns={['status', 'fleet', 'speed', 'driver']}
           // Feature 2 & 3: Range filters + search toggle
