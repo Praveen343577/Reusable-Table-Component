@@ -103,7 +103,7 @@
 @media (max-width: 72rem) {
   .ct-toolbar {
     padding: 0.75rem 1rem 0 1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.5rem;
   }
   .ct-tab {
@@ -113,22 +113,24 @@
   .ct-toolbar-actions {
     gap: 0.75rem;
     margin-bottom: 0.75rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 }
 
 @media (max-width: 48rem) {
   .ct-toolbar {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
   }
   .ct-toolbar-actions {
-    width: 100%;
-    justify-content: flex-start;
+    width: auto;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    overflow-x: visible;
   }
   .ct-tabs {
-    width: 100%;
+    width: auto;
     overflow-x: auto;
   }
 }
-
