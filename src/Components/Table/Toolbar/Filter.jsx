@@ -76,9 +76,9 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
 
   return (
     <div style={{ position: 'relative' }} ref={filterRef}>
-      <button className="ct-btn" onClick={() => setIsOpen(!isOpen)}>
+      <button className="ct-btn" onClick={() => setIsOpen(!isOpen)} title="Filter">
         <FilterIcon size={16} />
-        Filter
+        <span className="ct-btn-text">Filter</span>
         {activeFilterCount > 0 && (
           <span className="ct-filter-badge">{activeFilterCount}</span>
         )}
