@@ -10,7 +10,7 @@ function App() {
 
   const tableColumns = [
     { key: 'vrn', header: 'VRN/Chassis no.', width: '9rem' },
-    { key: 'type', header: 'Vehicle Type', width: '7rem' },
+    { key: 'type', header: 'Vehicle Type', width: '8rem' },
     { key: 'status', header: 'Status', width: '8rem',
       render: (row) => (
         <span className={`status-chip status-${row.status.toLowerCase()}`}>
