@@ -31,7 +31,7 @@ body.dark {
 }
 
 /* Blurred Motion Orbs */
-body::before,
+/* body::before,
 body::after {
   content: '';
   position: fixed;
@@ -41,7 +41,7 @@ body::after {
   animation: float 20s ease-in-out infinite alternate;
   pointer-events: none;
   will-change: transform;
-}
+} */
 
 body::before {
   width: 20vw;
