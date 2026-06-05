@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState } from 'react';
+
 import Table from './Components/Table/Table';
 import { useWebSocket } from './hooks/useWebSocket';
 import { getDelta } from './utils/getDelta';
@@ -96,8 +96,18 @@ function App() {
     { label: 'Inactive', count: 200 }
   ];
 
-  // Feature 2 & 3: Filter configuration
   const filterConfig = {
+    soc: {
+      type: 'range',
+      valueExtractor: (val) => parseInt(val),
+      ranges: [
+        { label: '0 - 20 %', min: 0, max: 20 },
+        { label: '21 - 50 %', min: 21, max: 50 },
+        { label: '51 - 85 %', min: 51, max: 85 },
+        { label: '86 - 100 %', min: 86, max: 100 },
+      ],
+      searchable: false,
+    },
     speed: {
       type: 'range',
       valueExtractor: (val) => parseInt(val),
@@ -136,16 +146,12 @@ function App() {
           showTabs={true}
           title="Vehicle Status"
           subtitle="Real-time fleet monitoring"
-          // Feature 4: Toolbar button visibility
           showSearch={true}
           showFilter={true}
           showColumnToggle={true}
           showExport={true}
-          // Feature 6: Row selection
           showRowSelection={true}
-          // Feature 1: Only these columns appear in the filter dropdown
-          filterableColumns={['status', 'fleet', 'speed', 'driver']}
-          // Feature 2 & 3: Range filters + search toggle
+          filterableColumns={['status', 'soc', 'fleet', 'speed', 'driver']}
           filterConfig={filterConfig}
         />
       </section>
