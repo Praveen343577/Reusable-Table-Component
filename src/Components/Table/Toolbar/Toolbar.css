@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.85rem 1rem;
   position: relative;
   z-index: 100;
 }
@@ -93,7 +93,7 @@
 
 @media (max-width: 72rem) {
   .ct-toolbar {
-    padding: 0.75rem 1rem 0 1rem;
+    padding: 0.75rem 1rem;
     flex-wrap: nowrap;
     gap: 0.5rem;
   }
@@ -103,7 +103,6 @@
   }
   .ct-toolbar-actions {
     gap: 0.75rem;
-    margin-bottom: 0.75rem;
     flex-wrap: nowrap;
   }
   .ct-toolbar-title {
@@ -113,7 +112,7 @@
 
 @media (max-width: 64rem) {
   .ct-toolbar {
-    padding: 0.6rem 0.85rem 0 0.85rem;
+    padding: 0.75rem 0.85rem;
   }
   .ct-tabs {
     gap: 1rem;
@@ -124,7 +123,6 @@
   }
   .ct-toolbar-actions {
     gap: 0.5rem;
-    margin-bottom: 0.6rem;
   }
   .ct-toolbar-title {
     font-size: 1.25rem;
@@ -133,7 +131,7 @@
 
 @media (max-width: 56rem) {
   .ct-toolbar {
-    padding: 0.5rem 0.75rem 0 0.75rem;
+    padding: 0.65rem 0.75rem;
   }
   .ct-tabs {
     gap: 1rem;
@@ -143,7 +141,6 @@
     padding: 0.3rem 0 0.6rem 0;
   }
   .ct-toolbar-actions {
-    margin-bottom: 0.5rem;
   }
   .ct-toolbar-title {
     font-size: 1.2rem;
@@ -155,14 +152,13 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    padding: 0.4rem 0.75rem 0 0.75rem;
+    padding: 0.5rem 0.75rem;
   }
   .ct-toolbar-actions {
     width: auto;
     justify-content: flex-end;
     flex-wrap: nowrap;
     overflow-x: visible;
-    margin-bottom: 0.4rem;
   }
   .ct-tabs {
     width: auto;
