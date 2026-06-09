@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { Filter as FilterIcon, ChevronRight } from 'lucide-react';
 import './Filter.css';
 
-const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) => {
+const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, localeText = {} }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedColumn, setExpandedColumn] = useState(null);
   const [filterSearch, setFilterSearch] = useState('');
@@ -76,9 +76,9 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
 
   return (
     <div style={{ position: 'relative' }} ref={filterRef}>
-      <button className="ct-btn" onClick={() => setIsOpen(!isOpen)} title="Filter">
+      <button className="ct-btn" onClick={() => setIsOpen(!isOpen)} title={localeText.filter || "Filter"}>
         <FilterIcon size={16} />
-        <span className="ct-btn-text">Filter</span>
+        <span className="ct-btn-text">{localeText.filter || "Filter"}</span>
         {activeFilterCount > 0 && (
           <span className="ct-filter-badge">{activeFilterCount}</span>
         )}
@@ -87,10 +87,10 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
       {isOpen && (
         <div className="ct-glass-dropdown ct-filter-dropdown">
           <div className="ct-filter-header">
-            <span className="ct-filter-title">Filters</span>
+            <span className="ct-filter-title">{localeText.filters || "Filters"}</span>
             {activeFilterCount > 0 && (
               <button className="ct-filter-clear-all" onClick={clearAllFilters}>
-                Clear all
+                {localeText.clearAll || "Clear all"}
               </button>
             )}
           </div>
@@ -121,7 +121,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
                           <div
                             className="ct-filter-clear-col-btn"
                             onClick={(e) => clearColumnFilter(col.key, e)}
-                            title="Clear filter"
+                            title={localeText.clearFilter || "Clear filter"}
                             role="button"
                             tabIndex={0}
                           >
@@ -139,7 +139,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
                         <input
                           type="text"
                           className="ct-filter-search-input"
-                          placeholder={`Search ${col.header}...`}
+                          placeholder={`${localeText.searchPlaceholder || "Search"} ${col.header}...`}
                           value={filterSearch}
                           onChange={(e) => setFilterSearch(e.target.value)}
                           autoFocus
@@ -147,7 +147,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {} }) =
                       )}
                       <div className="ct-filter-values-list">
                         {displayOptions.length === 0 ? (
-                          <div className="ct-filter-no-results">No matches</div>
+                          <div className="ct-filter-no-results">{localeText.noMatches || "No matches"}</div>
                         ) : (
                           displayOptions.map((val) => (
                             <label key={val} className="ct-glass-dropdown-item ct-filter-value-item">

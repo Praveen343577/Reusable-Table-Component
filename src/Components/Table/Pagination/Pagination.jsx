@@ -8,7 +8,7 @@ const Pagination = ({
   currentPage, setCurrentPage,
   rowsPerPage, setRowsPerPage,
   totalPages, startIndex,
-  totalEntries, paginationItems,
+  totalEntries, paginationItems, localeText = {},
 }) => {
   const [showRowsDropdown, setShowRowsDropdown] = useState(false);
   const rowsDropdownRef = useRef(null);
@@ -27,14 +27,14 @@ const Pagination = ({
     <div className="ct-footer">
       <div className="ct-showing-text">
         <span className="ct-showing-label">
-          Showing {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} of {totalEntries} page
+          {localeText.showing || "Showing"} {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} {localeText.of || "of"} {totalEntries} {localeText.page || "page"}
         </span>
         <div style={{ position: 'relative' }} ref={rowsDropdownRef}>
           <button
             className="ct-rows-trigger"
             onClick={() => setShowRowsDropdown(!showRowsDropdown)}
           >
-            {rowsPerPage} rows
+            {rowsPerPage} {localeText.rows || "rows"}
             <ChevronDown size={12} className={`ct-rows-chevron ${showRowsDropdown ? 'rotated' : ''}`} />
           </button>
           {showRowsDropdown && (
@@ -49,7 +49,7 @@ const Pagination = ({
                     setShowRowsDropdown(false);
                   }}
                 >
-                  {opt} rows
+                  {opt} {localeText.rows || "rows"}
                 </button>
               ))}
             </div>
@@ -59,7 +59,7 @@ const Pagination = ({
 
       <div className="ct-pagination-controls">
         <button className="ct-page-btn" disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)}>
-          Previous
+          {localeText.previous || "Previous"}
         </button>
 
         <div className="ct-pagination-numbers">
@@ -89,11 +89,11 @@ const Pagination = ({
         </div>
 
         <button className="ct-page-btn" disabled={currentPage === totalPages || totalPages === 0} onClick={() => setCurrentPage(prev => prev + 1)}>
-          Next
+          {localeText.next || "Next"}
         </button>
 
         <div className="ct-go-to">
-          Go to page <input
+          {localeText.goToPage || "Go to page"} <input
             type="number"
             min={1}
             max={totalPages}

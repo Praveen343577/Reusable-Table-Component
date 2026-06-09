@@ -1,7 +1,7 @@
 import { Download } from 'lucide-react';
 import XLSX from 'xlsx-js-style';
 
-const Export = ({ data, visibleCols, title }) => {
+const Export = ({ data, visibleCols, title = 'Export', localeText = {} }) => {
   const handleExport = () => {
     if (!data || data.length === 0) return;
 
@@ -74,8 +74,8 @@ const Export = ({ data, visibleCols, title }) => {
   };
 
   return (
-    <button className="ct-btn" onClick={handleExport} title="Export">
-      <Download size={16} /> <span className="ct-btn-text">Export</span>
+    <button className="ct-btn" onClick={handleExport} title={localeText.export || "Export"}>
+      <Download size={16} /> <span className="ct-btn-text">{localeText.export || "Export"}</span>
     </button>
   );
 };

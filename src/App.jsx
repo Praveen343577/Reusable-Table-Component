@@ -1,9 +1,7 @@
 // src/App.jsx
 
-import Table from './Components/Table/Table';
+import { Table, DeltaPill, getDelta } from './index';
 import { useWebSocket } from './hooks/useWebSocket';
-import { getDelta } from './utils/getDelta';
-import DeltaPill from './Components/Table/Body/DeltaPill';
 
 function App() {
   const { liveData, prevData } = useWebSocket();
@@ -143,6 +141,7 @@ function App() {
           prevData={prevData}
           tabs={tabs}
           defaultTab="All"
+          tabKey="status"
           showTabs={true}
           title="Vehicle Status"
           showSearch={true}

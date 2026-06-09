@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Columns } from 'lucide-react';
 
-const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn }) => {
+const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn, localeText = {} }) => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
 
@@ -17,8 +17,8 @@ const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn }) => {
 
   return (
     <div style={{ position: 'relative' }} ref={menuRef}>
-      <button className="ct-btn" onClick={() => setShowMenu(!showMenu)} title="Columns">
-        <Columns size={16} /> <span className="ct-btn-text">Columns</span>
+      <button className="ct-btn" onClick={() => setShowMenu(!showMenu)} title={localeText.columns || "Columns"}>
+        <Columns size={16} /> <span className="ct-btn-text">{localeText.columns || "Columns"}</span>
       </button>
       {showMenu && (
         <div className="ct-glass-dropdown">
