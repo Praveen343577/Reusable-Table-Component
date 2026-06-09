@@ -33,7 +33,7 @@
   font-weight: 500;
   color: var(--text-main);
   cursor: pointer;
-  padding: 0.75rem;
+  padding: 0rem;
   opacity: 0.5;
   transition: opacity 0.2s;
   position: relative;
@@ -99,7 +99,6 @@
   }
   .ct-tab {
     font-size: 0.875rem;
-    padding: 0.4rem 0 0.8rem 0;
   }
   .ct-toolbar-actions {
     gap: 0.75rem;
@@ -119,7 +118,6 @@
   }
   .ct-tab {
     font-size: 0.8125rem;
-    padding: 0.35rem 0 0.7rem 0;
   }
   .ct-toolbar-actions {
     gap: 0.5rem;
@@ -138,7 +136,6 @@
   }
   .ct-tab {
     font-size: 0.75rem;
-    padding: 0.3rem 0 0.6rem 0;
   }
   .ct-toolbar-actions {
   }
@@ -167,7 +164,6 @@
   }
   .ct-tab {
     font-size: 0.7rem;
-    padding: 0.25rem 0 0.5rem 0;
   }
   .ct-toolbar-title {
     font-size: 1rem;
