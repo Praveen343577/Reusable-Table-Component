@@ -150,6 +150,7 @@ function App() {
           showColumnToggle={true}
           showExport={true}
           showRowSelection={true}
+          showPagination={true}
           filterableColumns={['status', 'soc', 'fleet', 'speed', 'driver']}
           filterConfig={filterConfig}
         />

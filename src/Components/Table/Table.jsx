@@ -32,6 +32,7 @@ const Table = ({
   showColumnToggle = true,
   showExport = true,
   showRowSelection = true,
+  showPagination = true,
   filterableColumns,
   filterConfig = {},
 }) => {
@@ -83,7 +84,7 @@ const Table = ({
     resetPagination,
   } = usePagination(processedData.length);
 
-  const currentData = paginateData(processedData);
+  const currentData = showPagination ? paginateData(processedData) : processedData;
   const visibleCols = columns.filter((col) => !hiddenColumns.includes(col.key));
 
   const toggleColumn = (key) => {
@@ -182,16 +183,18 @@ const Table = ({
         </table>
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        rowsPerPage={rowsPerPage}
-        setRowsPerPage={setRowsPerPage}
-        totalPages={totalPages}
-        startIndex={startIndex}
-        totalEntries={processedData.length}
-        paginationItems={paginationItems}
-      />
+      {showPagination && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          totalPages={totalPages}
+          startIndex={startIndex}
+          totalEntries={processedData.length}
+          paginationItems={paginationItems}
+        />
+      )}
     </div>
   );
 };
@@ -209,6 +212,7 @@ Table.propTypes = {
   showColumnToggle: PropTypes.bool,
   showExport: PropTypes.bool,
   showRowSelection: PropTypes.bool,
+  showPagination: PropTypes.bool,
   filterableColumns: PropTypes.arrayOf(PropTypes.string),
   filterConfig: PropTypes.object,
 };
