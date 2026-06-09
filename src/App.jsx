@@ -142,7 +142,7 @@ function App() {
           data={liveData}
           prevData={prevData}
           tabs={tabs}
-          defaultTab="ALL"
+          defaultTab="All"
           showTabs={true}
           title="Vehicle Status"
           showSearch={true}
