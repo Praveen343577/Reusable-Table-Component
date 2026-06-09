@@ -62,6 +62,6 @@
 }
 
 @media (max-width: 48rem) {
-  .ct-search-input { padding: 0.475rem 0.4rem 0.475rem 1.5rem; font-size: 0.65rem; max-width: 7.5rem; }
+  .ct-search-input { padding: 0.4rem 0.4rem 0.4rem 1.5rem; font-size: 0.65rem; max-width: 7.5rem; }
   .ct-search-icon { left: 0.35rem; }
 }
