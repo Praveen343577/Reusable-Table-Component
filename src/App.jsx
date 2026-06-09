@@ -143,9 +143,8 @@ function App() {
           prevData={prevData}
           tabs={tabs}
           defaultTab="ALL"
-          showTabs={true}
+          showTabs={false}
           title="Vehicle Status"
-          subtitle="Real-time fleet monitoring"
           showSearch={true}
           showFilter={true}
           showColumnToggle={true}

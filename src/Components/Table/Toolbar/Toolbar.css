@@ -81,7 +81,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
-  padding-bottom: 0.75rem;
 }
 
 .ct-toolbar-title {
@@ -90,13 +89,6 @@
   font-weight: 700;
   color: var(--text-main);
   letter-spacing: -0.01em;
-}
-
-.ct-toolbar-subtitle {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 400;
-  color: var(--text-muted);
 }
 
 @media (max-width: 72rem) {
@@ -116,9 +108,6 @@
   }
   .ct-toolbar-title {
     font-size: 1.25rem;
-  }
-  .ct-toolbar-subtitle {
-    font-size: 0.8125rem;
   }
 }
 
@@ -140,9 +129,6 @@
   .ct-toolbar-title {
     font-size: 1.25rem;
   }
-  .ct-toolbar-subtitle {
-    font-size: 0.75rem;
-  }
 }
 
 @media (max-width: 56rem) {
@@ -161,9 +147,6 @@
   }
   .ct-toolbar-title {
     font-size: 1.2rem;
-  }
-  .ct-toolbar-subtitle {
-    font-size: 0.75rem;
   }
 }
 
@@ -193,7 +176,13 @@
   .ct-toolbar-title {
     font-size: 1rem;
   }
-  .ct-toolbar-subtitle {
-    font-size: 0.65rem;
+}
+
+@media (max-width: 700px) {
+  .ct-tabs {
+    display: none !important;
+  }
+  .ct-toolbar-title-block.mobile-only {
+    display: flex !important;
   }
 }

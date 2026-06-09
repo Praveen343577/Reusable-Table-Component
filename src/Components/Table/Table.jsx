@@ -25,20 +25,14 @@ const Table = ({
   tabs = [],
   defaultTab = '',
   prevData = null,
-  // Feature 5: Tabs vs Title/Subtitle
   showTabs = true,
   title = '',
-  subtitle = '',
-  // Feature 4: Toolbar button visibility
   showSearch = true,
   showFilter = true,
   showColumnToggle = true,
   showExport = true,
-  // Feature 6: Row selection toggle
   showRowSelection = true,
-  // Feature 1: Explicit filterable columns
   filterableColumns,
-  // Feature 2 & 3: Filter config (range, searchable)
   filterConfig = {},
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || (tabs[0]?.label || ''));
@@ -130,7 +124,6 @@ const Table = ({
         onTabChange={handleTabChange}
         showTabs={showTabs}
         title={title}
-        subtitle={subtitle}
       >
         {hasToolbarActions && (
           <>
@@ -211,7 +204,6 @@ Table.propTypes = {
   prevData: PropTypes.array,
   showTabs: PropTypes.bool,
   title: PropTypes.string,
-  subtitle: PropTypes.string,
   showSearch: PropTypes.bool,
   showFilter: PropTypes.bool,
   showColumnToggle: PropTypes.bool,
