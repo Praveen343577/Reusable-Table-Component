@@ -1,4 +1,7 @@
-import './DeltaPill.css';
+import tableStyles from "../Table/Table.module.css";
+import localStyles from "./DeltaPill.module.css";
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const DeltaPill = ({ delta, unit }) => {
   if (!delta) return null;
@@ -7,8 +10,8 @@ const DeltaPill = ({ delta, unit }) => {
 
   if (direction === 'none') {
     return (
-      <span className="ct-delta-pill ct-delta-neutral">
-        <span className="ct-delta-value">~</span>
+      <span className={[styles["ct-delta-pill"] styles["ct-delta-neutral"]].filter(Boolean).join(" ")}>
+        <span className={styles["ct-delta-value"]}>~</span>
       </span>
     );
   }
@@ -26,8 +29,8 @@ const DeltaPill = ({ delta, unit }) => {
 
   return (
     <span className={`ct-delta-pill ${isUp ? 'ct-delta-up' : 'ct-delta-down'}`}>
-      <span className="ct-delta-icon">{isUp ? '⇑' : '⇓'}</span>
-      <span className="ct-delta-value">
+      <span className={styles["ct-delta-icon"]}>{isUp ? '⇑' : '⇓'}</span>
+      <span className={styles["ct-delta-value"]}>
         {isUp ? '+' : '-'}{formattedValue}{unit}
       </span>
     </span>

@@ -1,14 +1,17 @@
+import tableStyles from "../Table.module.css";
 import { Search as SearchIcon } from 'lucide-react';
-import './Search.css';
+import localStyles from "./Search.module.css";
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const Search = ({ value, onChange, localeText = {} }) => {
   return (
-    <div className="ct-search-wrapper">
-      <SearchIcon size={16} className="ct-search-icon" />
+    <div className={styles["ct-search-wrapper"]}>
+      <SearchIcon size={16} className={styles["ct-search-icon"]} />
       <input
         type="text"
         placeholder={localeText.searchPlaceholder || "Search..."}
-        className="ct-search-input"
+        className={styles["ct-search-input"]}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

@@ -1,5 +1,8 @@
+import tableStyles from "../Table.module.css";
 import { Download } from 'lucide-react';
 import XLSX from 'xlsx-js-style';
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const Export = ({ data, visibleCols, title = 'Export', localeText = {} }) => {
   const handleExport = () => {
@@ -74,8 +77,8 @@ const Export = ({ data, visibleCols, title = 'Export', localeText = {} }) => {
   };
 
   return (
-    <button className="ct-btn" onClick={handleExport} title={localeText.export || "Export"}>
-      <Download size={16} /> <span className="ct-btn-text">{localeText.export || "Export"}</span>
+    <button className={styles["ct-btn"]} onClick={handleExport} title={localeText.export || "Export"}>
+      <Download size={16} /> <span className={styles["ct-btn-text"]}>{localeText.export || "Export"}</span>
     </button>
   );
 };

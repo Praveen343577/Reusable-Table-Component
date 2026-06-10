@@ -1,32 +1,35 @@
-import './Toolbar.css';
+import tableStyles from "../Table.module.css";
+import localStyles from "./Toolbar.module.css";
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const Toolbar = ({ tabs, activeTab, onTabChange, showTabs = true, title, children }) => {
   return (
-    <div className="ct-toolbar">
+    <div className={styles["ct-toolbar"]}>
       {showTabs && tabs.length > 0 ? (
         <>
-          <div className="ct-tabs">
+          <div className={styles["ct-tabs"]}>
             {tabs.map((tab) => (
               <button
                 key={tab.label}
                 className={`ct-tab ${activeTab === tab.label ? 'active' : ''}`}
                 onClick={() => onTabChange(tab.label)}
               >
-                {tab.label} {tab.count !== undefined && <span className="ct-tab-badge">{tab.count}</span>}
+                {tab.label} {tab.count !== undefined && <span className={styles["ct-tab-badge"]}>{tab.count}</span>}
               </button>
             ))}
           </div>
-          <div className="ct-toolbar-title-block mobile-only" style={{ display: 'none' }}>
-            {title && <h2 className="ct-toolbar-title">{title}</h2>}
+          <div className={[styles["ct-toolbar-title-block"] styles["mobile-only"]].filter(Boolean).join(" ")} style={{ display: 'none' }}>
+            {title && <h2 className={styles["ct-toolbar-title"]}>{title}</h2>}
           </div>
         </>
       ) : (
-        <div className="ct-toolbar-title-block">
-          {title && <h2 className="ct-toolbar-title">{title}</h2>}
+        <div className={styles["ct-toolbar-title-block"]}>
+          {title && <h2 className={styles["ct-toolbar-title"]}>{title}</h2>}
         </div>
       )}
       {children && (
-        <div className="ct-toolbar-actions">
+        <div className={styles["ct-toolbar-actions"]}>
           {children}
         </div>
       )}

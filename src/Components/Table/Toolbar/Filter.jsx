@@ -1,6 +1,9 @@
+import tableStyles from "../Table.module.css";
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { Filter as FilterIcon, ChevronRight } from 'lucide-react';
-import './Filter.css';
+import localStyles from "./Filter.module.css";
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, localeText = {} }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,26 +79,26 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
 
   return (
     <div style={{ position: 'relative' }} ref={filterRef}>
-      <button className="ct-btn" onClick={() => setIsOpen(!isOpen)} title={localeText.filter || "Filter"}>
+      <button className={styles["ct-btn"]} onClick={() => setIsOpen(!isOpen)} title={localeText.filter || "Filter"}>
         <FilterIcon size={16} />
-        <span className="ct-btn-text">{localeText.filter || "Filter"}</span>
+        <span className={styles["ct-btn-text"]}>{localeText.filter || "Filter"}</span>
         {activeFilterCount > 0 && (
-          <span className="ct-filter-badge">{activeFilterCount}</span>
+          <span className={styles["ct-filter-badge"]}>{activeFilterCount}</span>
         )}
       </button>
 
       {isOpen && (
-        <div className="ct-glass-dropdown ct-filter-dropdown">
-          <div className="ct-filter-header">
-            <span className="ct-filter-title">{localeText.filters || "Filters"}</span>
+        <div className={[styles["ct-glass-dropdown"] styles["ct-filter-dropdown"]].filter(Boolean).join(" ")}>
+          <div className={styles["ct-filter-header"]}>
+            <span className={styles["ct-filter-title"]}>{localeText.filters || "Filters"}</span>
             {activeFilterCount > 0 && (
-              <button className="ct-filter-clear-all" onClick={clearAllFilters}>
+              <button className={styles["ct-filter-clear-all"]} onClick={clearAllFilters}>
                 {localeText.clearAll || "Clear all"}
               </button>
             )}
           </div>
 
-          <div className="ct-filter-columns">
+          <div className={styles["ct-filter-columns"]}>
             {columns.map((col) => {
               const isExpanded = expandedColumn === col.key;
               const selectedValues = filters[col.key] || [];
@@ -103,7 +106,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
               const searchable = isSearchable(col.key);
 
               return (
-                <div key={col.key} className="ct-filter-column">
+                <div key={col.key} className={styles["ct-filter-column"]}>
                   <div
                     className={`ct-filter-column-header ${isExpanded ? 'expanded' : ''} ${selectedValues.length > 0 ? 'has-filter' : ''}`}
                     onClick={() => {
@@ -114,12 +117,12 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
                     tabIndex={0}
                   >
                     <span>{col.header}</span>
-                    <div className="ct-filter-column-meta">
+                    <div className={styles["ct-filter-column-meta"]}>
                       {selectedValues.length > 0 && (
                         <>
-                          <span className="ct-filter-count">{selectedValues.length}</span>
+                          <span className={styles["ct-filter-count"]}>{selectedValues.length}</span>
                           <div
-                            className="ct-filter-clear-col-btn"
+                            className={styles["ct-filter-clear-col-btn"]}
                             onClick={(e) => clearColumnFilter(col.key, e)}
                             title={localeText.clearFilter || "Clear filter"}
                             role="button"
@@ -134,30 +137,30 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
                   </div>
 
                   {isExpanded && (
-                    <div className="ct-filter-values">
+                    <div className={styles["ct-filter-values"]}>
                       {searchable && (
                         <input
                           type="text"
-                          className="ct-filter-search-input"
+                          className={styles["ct-filter-search-input"]}
                           placeholder={`${localeText.searchPlaceholder || "Search"} ${col.header}...`}
                           value={filterSearch}
                           onChange={(e) => setFilterSearch(e.target.value)}
                           autoFocus
                         />
                       )}
-                      <div className="ct-filter-values-list">
+                      <div className={styles["ct-filter-values-list"]}>
                         {displayOptions.length === 0 ? (
-                          <div className="ct-filter-no-results">{localeText.noMatches || "No matches"}</div>
+                          <div className={styles["ct-filter-no-results"]}>{localeText.noMatches || "No matches"}</div>
                         ) : (
                           displayOptions.map((val) => (
-                            <label key={val} className="ct-glass-dropdown-item ct-filter-value-item">
+                            <label key={val} className={[styles["ct-glass-dropdown-item"] styles["ct-filter-value-item"]].filter(Boolean).join(" ")}>
                               <input
                                 type="checkbox"
-                                className="ct-checkbox"
+                                className={styles["ct-checkbox"]}
                                 checked={selectedValues.includes(val)}
                                 onChange={() => toggleValue(col.key, val)}
                               />
-                              <span className="ct-filter-value-label">{val}</span>
+                              <span className={styles["ct-filter-value-label"]}>{val}</span>
                             </label>
                           ))
                         )}

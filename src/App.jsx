@@ -1,3 +1,4 @@
+import tableStyles from "./Components/Table/Table.module.css";
 // src/App.jsx
 
 import { Table, DeltaPill, getDelta } from './index';
@@ -11,7 +12,7 @@ function App() {
     { key: 'type', header: 'Vehicle Type', width: '8rem' },
     { key: 'status', header: 'Status', width: '8rem',
       render: (row) => (
-        <span className={`status-chip status-${row.status.toLowerCase()}`}>
+        <span className={`${tableStyles["status-chip"]} ${tableStyles["status-" + row.status.toLowerCase()]}`}>
           {row.status}
         </span>
       )
@@ -20,8 +21,8 @@ function App() {
       render: (row) => {
         const initials = row.driver.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         return (
-          <div className="driver-wrapper">
-            <div className="driver-avatar">
+          <div className={tableStyles["driver-wrapper"]}>
+            <div className={tableStyles["driver-avatar"]}>
               {initials}
             </div>
             <span>{row.driver}</span>

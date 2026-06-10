@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import useSort from './hooks/useSort';
@@ -17,7 +17,9 @@ import Header from './Header/Header';
 import Body from './Body/Body';
 import Pagination from './Pagination/Pagination';
 
-import './Table.css';
+import localStyles from "./Table.module.css";
+
+const styles = localStyles;
 
 const defaultLocaleText = {
   searchPlaceholder: "Search",
@@ -65,6 +67,7 @@ const Table = ({
   const mergedLocale = { ...defaultLocaleText, ...localeText };
   const [activeTab, setActiveTab] = useState(defaultTab || (tabs[0]?.label || ''));
   const [hiddenColumns, setHiddenColumns] = useState([]);
+  const tableWrapperRef = useRef(null);
 
   // Dev-mode warnings for invalid filterableColumns keys
   if (process.env.NODE_ENV === 'development' && filterableColumns) {
@@ -176,7 +179,7 @@ const Table = ({
   const hasToolbarActions = showSearch || showFilter || showColumnToggle || showExport;
 
   return (
-    <div className="ct-container">
+    <div className={styles["ct-container"]}>
       <Toolbar
         tabs={tabs}
         activeTab={activeTab}
@@ -224,8 +227,8 @@ const Table = ({
         )}
       </Toolbar>
 
-      <div className="ct-table-wrapper">
-        <table className="ct-table">
+      <div className={styles["ct-table-wrapper"]} ref={tableWrapperRef}>
+        <table className={styles["ct-table"]}>
           <Header
             visibleCols={visibleCols}
             sortConfig={sortConfig}
@@ -236,6 +239,7 @@ const Table = ({
           />
           <Body
             currentData={currentData}
+            tableWrapperRef={tableWrapperRef}
             prevData={prevData}
             visibleCols={visibleCols}
             selectedIds={selectedIds}

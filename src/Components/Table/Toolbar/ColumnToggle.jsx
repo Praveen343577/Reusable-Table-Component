@@ -1,5 +1,8 @@
+import tableStyles from "../Table.module.css";
 import { useState, useRef, useEffect } from 'react';
 import { Columns } from 'lucide-react';
+
+const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
 
 const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn, localeText = {} }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -17,16 +20,16 @@ const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn, localeText = {} 
 
   return (
     <div style={{ position: 'relative' }} ref={menuRef}>
-      <button className="ct-btn" onClick={() => setShowMenu(!showMenu)} title={localeText.columns || "Columns"}>
-        <Columns size={16} /> <span className="ct-btn-text">{localeText.columns || "Columns"}</span>
+      <button className={styles["ct-btn"]} onClick={() => setShowMenu(!showMenu)} title={localeText.columns || "Columns"}>
+        <Columns size={16} /> <span className={styles["ct-btn-text"]}>{localeText.columns || "Columns"}</span>
       </button>
       {showMenu && (
-        <div className="ct-glass-dropdown">
+        <div className={styles["ct-glass-dropdown"]}>
           {columns.map((col) => (
-            <label key={col.key} className="ct-glass-dropdown-item">
+            <label key={col.key} className={styles["ct-glass-dropdown-item"]}>
               <input
                 type="checkbox"
-                className="ct-checkbox"
+                className={styles["ct-checkbox"]}
                 checked={!hiddenColumns.includes(col.key)}
                 onChange={() => onToggleColumn(col.key)}
               />
