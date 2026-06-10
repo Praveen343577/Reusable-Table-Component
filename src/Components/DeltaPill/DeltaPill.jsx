@@ -10,7 +10,7 @@ const DeltaPill = ({ delta, unit }) => {
 
   if (direction === 'none') {
     return (
-      <span className={[styles["ct-delta-pill"] styles["ct-delta-neutral"]].filter(Boolean).join(" ")}>
+      <span className={[styles["ct-delta-pill"], styles["ct-delta-neutral"]].filter(Boolean).join(" ")}>
         <span className={styles["ct-delta-value"]}>~</span>
       </span>
     );

@@ -19,7 +19,7 @@ const Toolbar = ({ tabs, activeTab, onTabChange, showTabs = true, title, childre
               </button>
             ))}
           </div>
-          <div className={[styles["ct-toolbar-title-block"] styles["mobile-only"]].filter(Boolean).join(" ")} style={{ display: 'none' }}>
+          <div className={[styles["ct-toolbar-title-block"], styles["mobile-only"]].filter(Boolean).join(" ")} style={{ display: 'none' }}>
             {title && <h2 className={styles["ct-toolbar-title"]}>{title}</h2>}
           </div>
         </>

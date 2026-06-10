@@ -41,7 +41,7 @@ const Pagination = ({
             <ChevronDown size={12} className={`ct-rows-chevron ${showRowsDropdown ? 'rotated' : ''}`} />
           </button>
           {showRowsDropdown && (
-            <div className={[styles["ct-glass-dropdown"] styles["ct-rows-dropdown"]].filter(Boolean).join(" ")}>
+            <div className={[styles["ct-glass-dropdown"], styles["ct-rows-dropdown"]].filter(Boolean).join(" ")}>
               {ROWS_OPTIONS.map((opt) => (
                 <button
                   key={opt}
@@ -70,14 +70,14 @@ const Pagination = ({
         {paginationItems.map((item, index) => {
           if (item === 'left') {
             return (
-              <button key={`left-${index}`} className={[styles["ct-page-btn"] styles["ct-ellipsis"]].filter(Boolean).join(" ")} onClick={() => setCurrentPage(Math.max(1, currentPage - 5))}>
+              <button key={`left-${index}`} className={[styles["ct-page-btn"], styles["ct-ellipsis"]].filter(Boolean).join(" ")} onClick={() => setCurrentPage(Math.max(1, currentPage - 5))}>
                 <ChevronsLeft size={16} />
               </button>
             );
           }
           if (item === 'right') {
             return (
-              <button key={`right-${index}`} className={[styles["ct-page-btn"] styles["ct-ellipsis"]].filter(Boolean).join(" ")} onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 5))}>
+              <button key={`right-${index}`} className={[styles["ct-page-btn"], styles["ct-ellipsis"]].filter(Boolean).join(" ")} onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 5))}>
                 <ChevronsRight size={16} />
               </button>
             );
