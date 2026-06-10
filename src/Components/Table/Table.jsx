@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import useSort from './hooks/useSort';
@@ -17,13 +17,35 @@ import Header from './Header/Header';
 import Body from './Body/Body';
 import Pagination from './Pagination/Pagination';
 
-import './Table.css';
+import localStyles from "./Table.module.css";
+
+const styles = localStyles;
+
+const defaultLocaleText = {
+  searchPlaceholder: "Search",
+  filter: "Filter",
+  filters: "Filters",
+  clearAll: "Clear all",
+  noMatches: "No matches",
+  clearFilter: "Clear filter",
+  columns: "Columns",
+  export: "Export",
+  refresh: "Refresh",
+  showing: "Showing",
+  of: "of",
+  page: "page",
+  rows: "rows",
+  previous: "Previous",
+  next: "Next",
+  goToPage: "Go to page",
+};
 
 const Table = ({
   data = [],
   columns = [],
   tabs = [],
   defaultTab = '',
+  tabKey = 'status',
   prevData = null,
   showTabs = true,
   title = '',
@@ -33,11 +55,19 @@ const Table = ({
   showExport = true,
   showRowSelection = true,
   showPagination = true,
+  mode = 'client',
+  totalServerEntries = 0,
+  onPageChange,
+  onSortChange,
+  onFilterChange,
   filterableColumns,
   filterConfig = {},
+  localeText = {},
 }) => {
+  const mergedLocale = { ...defaultLocaleText, ...localeText };
   const [activeTab, setActiveTab] = useState(defaultTab || (tabs[0]?.label || ''));
   const [hiddenColumns, setHiddenColumns] = useState([]);
+  const tableWrapperRef = useRef(null);
 
   // Dev-mode warnings for invalid filterableColumns keys
   if (process.env.NODE_ENV === 'development' && filterableColumns) {
@@ -61,19 +91,20 @@ const Table = ({
 
   // Tab filter — skip when tabs are hidden
   const tabFilteredData = useMemo(() => {
-    if (!showTabs) return data;
+    if (!showTabs || !tabKey) return data;
     if (!activeTab || activeTab === 'ALL' || activeTab === 'All') return data;
-    return data.filter((row) => row.status === activeTab);
-  }, [data, activeTab, showTabs]);
+    return data.filter((row) => row[tabKey] === activeTab);
+  }, [data, activeTab, showTabs, tabKey]);
 
   // Pipeline: tab → search → column filter → sort
   const processedData = useMemo(() => {
+    if (mode === 'server') return data;
     let result = tabFilteredData;
     result = filterBySearch(result);
     result = filterData(result);
     result = sortData(result);
     return result;
-  }, [tabFilteredData, filterBySearch, filterData, sortData]);
+  }, [tabFilteredData, filterBySearch, filterData, sortData, mode, data]);
 
   const {
     currentPage, setCurrentPage,
@@ -82,9 +113,9 @@ const Table = ({
     paginationItems,
     paginateData,
     resetPagination,
-  } = usePagination(processedData.length);
+  } = usePagination(mode === 'server' ? totalServerEntries : processedData.length);
 
-  const currentData = showPagination ? paginateData(processedData) : processedData;
+  const currentData = (mode === 'server' || !showPagination) ? processedData : paginateData(processedData);
   const visibleCols = columns.filter((col) => !hiddenColumns.includes(col.key));
 
   const toggleColumn = (key) => {
@@ -106,11 +137,41 @@ const Table = ({
   const handleTabChange = (label) => {
     setActiveTab(label);
     setCurrentPage(1);
+    if (mode === 'server' && onFilterChange) onFilterChange({ tab: label });
   };
 
   const handleSearchChange = (value) => {
     setSearchQuery(value);
     setCurrentPage(1);
+    if (mode === 'server' && onFilterChange) onFilterChange({ search: value });
+  };
+
+  const handleSortProxy = (key) => {
+    handleSort(key);
+    if (mode === 'server' && onSortChange) {
+      const newDirection = sortConfig.key === key && sortConfig.direction === 'asc' ? 'desc' : 'asc';
+      onSortChange(key, newDirection);
+    }
+  };
+
+  const handleFilterProxy = (columnKey, values) => {
+    setColumnFilter(columnKey, values);
+    if (mode === 'server' && onFilterChange) {
+      const newFilters = { ...filters };
+      if (!values || values.length === 0) delete newFilters[columnKey];
+      else newFilters[columnKey] = values;
+      onFilterChange(newFilters);
+    }
+  };
+
+  const handlePageChangeProxy = (page) => {
+    setCurrentPage(page);
+    if (mode === 'server' && onPageChange) onPageChange(page, rowsPerPage);
+  };
+
+  const handleRowsPerPageProxy = (rows) => {
+    setRowsPerPage(rows);
+    if (mode === 'server' && onPageChange) onPageChange(1, rows);
   };
 
   const allSelected = currentData.length > 0 && currentData.every((row) => selectedIds.includes(row.id));
@@ -118,7 +179,7 @@ const Table = ({
   const hasToolbarActions = showSearch || showFilter || showColumnToggle || showExport;
 
   return (
-    <div className="ct-container">
+    <div className={styles["ct-container"]}>
       <Toolbar
         tabs={tabs}
         activeTab={activeTab}
@@ -131,16 +192,18 @@ const Table = ({
             {showSearch && 
               <Search 
                 value={searchQuery} 
-                onChange={handleSearchChange} 
+                onChange={handleSearchChange}
+                localeText={mergedLocale}
               />
             }
             {showFilter && (
               <Filter
                 columns={filterableCols}
-                data={tabFilteredData}
+                data={mode === 'server' ? data : tabFilteredData}
                 filters={filters}
-                onFilterChange={setColumnFilter}
+                onFilterChange={handleFilterProxy}
                 filterConfig={filterConfig}
+                localeText={mergedLocale}
               />
             )}
             {showColumnToggle && (
@@ -148,6 +211,7 @@ const Table = ({
                 columns={columns}
                 hiddenColumns={hiddenColumns}
                 onToggleColumn={toggleColumn}
+                localeText={mergedLocale}
               />
             )}
             {showExport && 
@@ -155,25 +219,27 @@ const Table = ({
                 data={processedData} 
                 visibleCols={visibleCols} 
                 title={title} 
+                localeText={mergedLocale}
               />
             }
-            <Refresh onRefresh={handleRefresh} />
+            <Refresh onRefresh={handleRefresh} localeText={mergedLocale} />
           </>
         )}
       </Toolbar>
 
-      <div className="ct-table-wrapper">
-        <table className="ct-table">
+      <div className={styles["ct-table-wrapper"]} ref={tableWrapperRef}>
+        <table className={styles["ct-table"]}>
           <Header
             visibleCols={visibleCols}
             sortConfig={sortConfig}
-            onSort={handleSort}
+            onSort={handleSortProxy}
             allSelected={allSelected}
             onToggleSelectAll={() => toggleSelectAll(currentData)}
             showRowSelection={showRowSelection}
           />
           <Body
             currentData={currentData}
+            tableWrapperRef={tableWrapperRef}
             prevData={prevData}
             visibleCols={visibleCols}
             selectedIds={selectedIds}
@@ -186,13 +252,14 @@ const Table = ({
       {showPagination && (
         <Pagination
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={handlePageChangeProxy}
           rowsPerPage={rowsPerPage}
-          setRowsPerPage={setRowsPerPage}
+          setRowsPerPage={handleRowsPerPageProxy}
           totalPages={totalPages}
           startIndex={startIndex}
-          totalEntries={processedData.length}
+          totalEntries={mode === 'server' ? totalServerEntries : processedData.length}
           paginationItems={paginationItems}
+          localeText={mergedLocale}
         />
       )}
     </div>
@@ -203,6 +270,7 @@ Table.propTypes = {
   data: PropTypes.array,
   columns: PropTypes.array.isRequired,
   tabs: PropTypes.array,
+  tabKey: PropTypes.string,
   defaultTab: PropTypes.string,
   prevData: PropTypes.array,
   showTabs: PropTypes.bool,
@@ -213,6 +281,11 @@ Table.propTypes = {
   showExport: PropTypes.bool,
   showRowSelection: PropTypes.bool,
   showPagination: PropTypes.bool,
+  mode: PropTypes.oneOf(['client', 'server']),
+  totalServerEntries: PropTypes.number,
+  onPageChange: PropTypes.func,
+  onSortChange: PropTypes.func,
+  onFilterChange: PropTypes.func,
   filterableColumns: PropTypes.arrayOf(PropTypes.string),
   filterConfig: PropTypes.object,
 };
