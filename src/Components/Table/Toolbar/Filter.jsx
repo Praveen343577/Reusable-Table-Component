@@ -3,7 +3,11 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { Filter as FilterIcon, ChevronRight } from 'lucide-react';
 import localStyles from "./Filter.module.css";
 
-const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
+const styles = {};
+const localS = typeof localStyles !== "undefined" ? localStyles : {};
+for (const key of new Set([...Object.keys(tableStyles || {}), ...Object.keys(localS)])) {
+  styles[key] = [tableStyles?.[key], localS[key]].filter(Boolean).join(" ");
+}
 
 const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, localeText = {} }) => {
   const [isOpen, setIsOpen] = useState(false);

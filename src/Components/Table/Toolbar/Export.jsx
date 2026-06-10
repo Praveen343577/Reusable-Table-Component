@@ -2,7 +2,11 @@ import tableStyles from "../Table.module.css";
 import { Download } from 'lucide-react';
 import XLSX from 'xlsx-js-style';
 
-const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
+const styles = {};
+const localS = typeof localStyles !== "undefined" ? localStyles : {};
+for (const key of new Set([...Object.keys(tableStyles || {}), ...Object.keys(localS)])) {
+  styles[key] = [tableStyles?.[key], localS[key]].filter(Boolean).join(" ");
+}
 
 const Export = ({ data, visibleCols, title = 'Export', localeText = {} }) => {
   const handleExport = () => {

@@ -2,7 +2,11 @@ import tableStyles from "../Table.module.css";
 import { useState, useRef, useEffect } from 'react';
 import { Columns } from 'lucide-react';
 
-const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
+const styles = {};
+const localS = typeof localStyles !== "undefined" ? localStyles : {};
+for (const key of new Set([...Object.keys(tableStyles || {}), ...Object.keys(localS)])) {
+  styles[key] = [tableStyles?.[key], localS[key]].filter(Boolean).join(" ");
+}
 
 const ColumnToggle = ({ columns, hiddenColumns, onToggleColumn, localeText = {} }) => {
   const [showMenu, setShowMenu] = useState(false);

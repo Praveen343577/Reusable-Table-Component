@@ -1,12 +1,16 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import tableStyles from "../Table.module.css";
 
-const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
-const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, showRowSelection, style }) => {
+const styles = {};
+const localS = typeof localStyles !== "undefined" ? localStyles : {};
+for (const key of new Set([...Object.keys(tableStyles || {}), ...Object.keys(localS)])) {
+  styles[key] = [tableStyles?.[key], localS[key]].filter(Boolean).join(" ");
+}
+const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, showRowSelection }) => {
   return (
-    <tr style={style} className={styles["ct-table-row"]}>
+    <tr className={styles["ct-table-row"]}>
       {showRowSelection && (
-        <td style={{ width: '3rem', flexShrink: 0 }}>
+        <td style={{ width: '3rem' }}>
           <input
             type="checkbox"
             className={styles["ct-checkbox"]}
@@ -16,7 +20,7 @@ const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, sh
         </td>
       )}
       {visibleCols.map((col) => (
-        <td key={`${row.id}-${col.key}`} style={{ width: col.width || 'auto', flex: col.width ? '0 0 auto' : '1 1 0px' }}>
+        <td key={`${row.id}-${col.key}`}>
           {col.render ? col.render(row, prevRow) : row[col.key]}
         </td>
       ))}
@@ -32,38 +36,48 @@ const Body = ({ currentData, visibleCols, selectedIds, onToggleSelectRow, prevDa
     overscan: 5, // Buffer rows
   });
 
+  const virtualItems = rowVirtualizer.getVirtualItems();
+  const paddingTop = virtualItems.length > 0 ? virtualItems[0].start : 0;
+  const paddingBottom = virtualItems.length > 0
+    ? rowVirtualizer.getTotalSize() - virtualItems[virtualItems.length - 1].end
+    : 0;
+
   return (
-    <tbody style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: 'relative', display: 'block' }}>
+    <tbody>
       {currentData.length === 0 ? (
         <tr>
-          <td colSpan={visibleCols.length + (showRowSelection ? 1 : 0)} style={{ textAlign: 'center', padding: '40px', width: '100%', display: 'block' }}>
+          <td colSpan={visibleCols.length + (showRowSelection ? 1 : 0)} style={{ textAlign: 'center', padding: '40px' }}>
             No records found.
           </td>
         </tr>
       ) : (
-        rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const row = currentData[virtualRow.index];
-          const prevRow = prevData ? prevData.find((p) => p.id === row.id) : null;
-          return (
-            <BodyRow
-              key={row.id}
-              row={row}
-              prevRow={prevRow}
-              visibleCols={visibleCols}
-              selectedIds={selectedIds}
-              onToggleSelectRow={onToggleSelectRow}
-              showRowSelection={showRowSelection}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                display: 'flex',
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
-            />
-          );
-        })
+        <>
+          {paddingTop > 0 && (
+            <tr>
+              <td style={{ height: `${paddingTop}px`, padding: 0, border: 0 }} colSpan={visibleCols.length + (showRowSelection ? 1 : 0)} />
+            </tr>
+          )}
+          {virtualItems.map((virtualRow) => {
+            const row = currentData[virtualRow.index];
+            const prevRow = prevData ? prevData.find((p) => p.id === row.id) : null;
+            return (
+              <BodyRow
+                key={row.id}
+                row={row}
+                prevRow={prevRow}
+                visibleCols={visibleCols}
+                selectedIds={selectedIds}
+                onToggleSelectRow={onToggleSelectRow}
+                showRowSelection={showRowSelection}
+              />
+            );
+          })}
+          {paddingBottom > 0 && (
+            <tr>
+              <td style={{ height: `${paddingBottom}px`, padding: 0, border: 0 }} colSpan={visibleCols.length + (showRowSelection ? 1 : 0)} />
+            </tr>
+          )}
+        </>
       )}
     </tbody>
   );
