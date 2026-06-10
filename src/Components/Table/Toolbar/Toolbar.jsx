@@ -12,7 +12,7 @@ const Toolbar = ({ tabs, activeTab, onTabChange, showTabs = true, title, childre
             {tabs.map((tab) => (
               <button
                 key={tab.label}
-                className={`ct-tab ${activeTab === tab.label ? 'active' : ''}`}
+                className={`${styles["ct-tab"]} ${activeTab === tab.label ? styles['active'] : ''}`}
                 onClick={() => onTabChange(tab.label)}
               >
                 {tab.label} {tab.count !== undefined && <span className={styles["ct-tab-badge"]}>{tab.count}</span>}

@@ -108,7 +108,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
               return (
                 <div key={col.key} className={styles["ct-filter-column"]}>
                   <div
-                    className={`ct-filter-column-header ${isExpanded ? 'expanded' : ''} ${selectedValues.length > 0 ? 'has-filter' : ''}`}
+                    className={`${styles["ct-filter-column-header"]} ${isExpanded ? styles['expanded'] : ''} ${selectedValues.length > 0 ? styles['has-filter'] : ''}`}
                     onClick={() => {
                       setExpandedColumn(isExpanded ? null : col.key);
                       setFilterSearch('');
@@ -132,7 +132,7 @@ const Filter = ({ columns, data, filters, onFilterChange, filterConfig = {}, loc
                           </div>
                         </>
                       )}
-                      <ChevronRight size={14} className={`ct-filter-chevron ${isExpanded ? 'active' : ''}`} />
+                      <ChevronRight size={14} className={`${styles["ct-filter-chevron"]} ${isExpanded ? styles['active'] : ''}`} />
                     </div>
                   </div>
 

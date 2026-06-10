@@ -28,7 +28,7 @@ const DeltaPill = ({ delta, unit }) => {
   }
 
   return (
-    <span className={`ct-delta-pill ${isUp ? 'ct-delta-up' : 'ct-delta-down'}`}>
+    <span className={`${styles["ct-delta-pill"]} ${isUp ? styles['ct-delta-up'] : styles['ct-delta-down']}`}>
       <span className={styles["ct-delta-icon"]}>{isUp ? '⇑' : '⇓'}</span>
       <span className={styles["ct-delta-value"]}>
         {isUp ? '+' : '-'}{formattedValue}{unit}

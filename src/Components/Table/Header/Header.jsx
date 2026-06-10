@@ -22,7 +22,7 @@ const Header = ({ visibleCols, sortConfig, onSort, allSelected, onToggleSelectAl
           <th key={col.key} className={styles["ct-th-sortable"]} onClick={() => onSort(col.key)} style={{ width: col.width || 'auto', flex: col.width ? '0 0 auto' : '1 1 0px' }}>
             <div className={styles["ct-th-content"]}>
               {col.header}
-              <div className={`ct-sort-icons ${sortConfig.key === col.key ? 'active' : ''}`}>
+              <div className={`${styles["ct-sort-icons"]} ${sortConfig.key === col.key ? styles['active'] : ''}`}>
                 {sortConfig.key === col.key ? (
                   sortConfig.direction === 'asc' ? <ArrowUp size={14} /> : <ArrowDown size={14} />
                 ) : (

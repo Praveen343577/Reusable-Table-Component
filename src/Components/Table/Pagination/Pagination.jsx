@@ -38,14 +38,14 @@ const Pagination = ({
             onClick={() => setShowRowsDropdown(!showRowsDropdown)}
           >
             {rowsPerPage} {localeText.rows || "rows"}
-            <ChevronDown size={12} className={`ct-rows-chevron ${showRowsDropdown ? 'rotated' : ''}`} />
+            <ChevronDown size={12} className={`${styles["ct-rows-chevron"]} ${showRowsDropdown ? styles['rotated'] : ''}`} />
           </button>
           {showRowsDropdown && (
             <div className={[styles["ct-glass-dropdown"], styles["ct-rows-dropdown"]].filter(Boolean).join(" ")}>
               {ROWS_OPTIONS.map((opt) => (
                 <button
                   key={opt}
-                  className={`ct-glass-dropdown-item ${rowsPerPage === opt ? 'active' : ''}`}
+                  className={`${styles["ct-glass-dropdown-item"]} ${rowsPerPage === opt ? styles['active'] : ''}`}
                   onClick={() => {
                     setRowsPerPage(opt);
                     setCurrentPage(1);
@@ -83,7 +83,7 @@ const Pagination = ({
             );
           }
           return (
-            <button key={item} className={`ct-page-btn ${currentPage === item ? 'active' : ''}`} onClick={() => setCurrentPage(item)}>
+            <button key={item} className={`${styles["ct-page-btn"]} ${currentPage === item ? styles['active'] : ''}`} onClick={() => setCurrentPage(item)}>
               {item}
             </button>
           );

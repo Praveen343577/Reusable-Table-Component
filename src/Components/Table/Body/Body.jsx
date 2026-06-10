@@ -2,7 +2,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import tableStyles from "../Table.module.css";
 
 const styles = { ...tableStyles, ...(typeof localStyles !== "undefined" ? localStyles : {}) };
-const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, showRowSelection }) => {
+const BodyRow = ({ row, visibleCols, selectedIds, onToggleSelectRow, prevRow, showRowSelection, style }) => {
   return (
     <tr style={style} className={styles["ct-table-row"]}>
       {showRowSelection && (
