@@ -76,7 +76,7 @@ function App() {
     },
     { key: 'odometer', header: 'Odometer', width: '7rem' },
     { key: 'dte', header: 'DTE', width: '6rem' },
-    { key: 'temperature', header: 'Temperature', width: '11rem',
+    { key: 'temperature', header: 'Temperature', width: '9rem',
       render: (row, prevRow) => {
         const delta = getDelta(row.temperature, prevRow?.temperature);
         return (
