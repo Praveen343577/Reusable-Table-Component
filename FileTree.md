@@ -1,5 +1,3 @@
-# File Tree: reusable-table-component
-
 ```
 ├── 📁 src
 │   ├── 📁 Components
@@ -37,7 +35,6 @@
 │   ├── 📁 Data
 │   │   ├── 📄 generateMockData.js
 │   │   └── ⚙️ mockTableData.json
-│   ├── 📁 assets
 │   ├── 📁 hooks
 │   │   └── 📄 useWebSocket.js
 │   ├── 📁 utils
