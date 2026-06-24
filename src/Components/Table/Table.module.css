@@ -14,6 +14,7 @@
   --border-color: var(--bw-400);
   --glow-color: var(--primary-color);
 
+  container-type: inline-size;
   width: 100%;
   max-height: 100%;
   font-family: "Inter", sans-serif;
@@ -332,7 +333,7 @@
 }
 
 /* ===== Responsive Breakpoints ===== */
-@media (max-width: 72rem) {
+@container (max-width: 72rem) {
   .ct-table th {
     padding: 0.875rem 0.875rem;
     font-size: 0.8rem;
@@ -367,7 +368,7 @@
   }
 }
 
-@media (max-width: 64rem) {
+@container (max-width: 64rem) {
   .ct-container {
     border-radius: 18px;
   }
@@ -404,7 +405,7 @@
   }
 }
 
-@media (max-width: 56rem) {
+@container (max-width: 56rem) {
   .ct-container {
     border-radius: 15px;
   }
@@ -445,7 +446,7 @@
   }
 }
 
-@media (max-width: 48rem) {
+@container (max-width: 48rem) {
   .ct-container {
     border-radius: 12px;
   }
