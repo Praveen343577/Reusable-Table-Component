@@ -13,6 +13,15 @@
   --radius-main: 20px;
   --border-color: var(--bw-400);
   --glow-color: var(--primary-color);
+  
+  --dropdown-bg: #ffffff;
+  --btn-bg: rgba(255, 255, 255, 0.6);
+  --btn-bg-hover: rgba(255, 255, 255, 0.9);
+  --btn-bg-active: #ffffff;
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --input-bg-focus: rgba(255, 255, 255, 0.9);
+  --text-secondary: #555555;
+  --hover-bg: rgba(255, 255, 255, 0.3);
 
   container-type: inline-size;
   width: 100%;
@@ -214,7 +223,7 @@
 
 /* ===== Shared Button ===== */
 .ct-btn {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--btn-bg);
   border: 1px solid var(--bw-400);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
@@ -229,7 +238,7 @@
 }
 
 .ct-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--btn-bg-hover);
   color: #0093af;
   border-color: #0093af !important;
   box-shadow: 0 0 0 1px var(--primary-color);
@@ -244,7 +253,7 @@
   top: calc(100% + 0.5rem);
   right: 0;
   min-width: 12.5rem;
-  background: #ffffff;
+  background: var(--dropdown-bg);
   border: 1px solid var(--border-color);
   border-radius: 0.75rem;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
@@ -329,6 +338,76 @@
 
 .ct-row-flash {
   animation: ct-flash 1.5s ease-out;
+}
+
+/* ===== Dark Mode ===== */
+/* 1. System Theme (Fallback) */
+@media (prefers-color-scheme: dark) {
+  .ct-container {
+    --glass-bg: rgba(15, 23, 42, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --row-bg: #1e293b;
+    --row-hover-bg: #0f172a;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    
+    --dropdown-bg: #1e293b;
+    --btn-bg: rgba(15, 23, 42, 0.6);
+    --btn-bg-hover: rgba(30, 41, 59, 0.8);
+    --btn-bg-active: #1e293b;
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --input-bg-focus: #1e293b;
+    --text-secondary: #94a3b8;
+    --hover-bg: rgba(255, 255, 255, 0.1);
+    
+    background: #1a1a1a;
+  }
+}
+
+/* 2. Explicit Toggle - Overrides System Theme */
+:global([data-theme="dark"]) .ct-container,
+:global(.dark) .ct-container {
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --row-bg: #1e293b;
+  --row-hover-bg: #0f172a;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  
+  --dropdown-bg: #1e293b;
+  --btn-bg: rgba(15, 23, 42, 0.6);
+  --btn-bg-hover: rgba(30, 41, 59, 0.8);
+  --btn-bg-active: #1e293b;
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --input-bg-focus: #1e293b;
+  --text-secondary: #94a3b8;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  
+  background: #1a1a1a;
+}
+
+:global([data-theme="light"]) .ct-container,
+:global(.light) .ct-container {
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: var(--bw-400);
+  --row-bg: var(--bw-500);
+  --row-hover-bg: #f4f6f8;
+  --text-main: #000000;
+  --text-muted: var(--bw-200);
+  --border-color: var(--bw-400);
+  
+  --dropdown-bg: #ffffff;
+  --btn-bg: rgba(255, 255, 255, 0.6);
+  --btn-bg-hover: rgba(255, 255, 255, 0.9);
+  --btn-bg-active: #ffffff;
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --input-bg-focus: rgba(255, 255, 255, 0.9);
+  --text-secondary: #555555;
+  --hover-bg: rgba(255, 255, 255, 0.3);
+  
+  background: transparent;
 }
 
 /* ===== Responsive Breakpoints ===== */
