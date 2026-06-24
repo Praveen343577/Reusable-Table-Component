@@ -16,7 +16,7 @@
 
   container-type: inline-size;
   width: 100%;
-  max-height: 100%;
+  height: 100%;
   font-family: "Inter", sans-serif;
   border-radius: var(--radius-main);
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.15);
@@ -30,12 +30,11 @@
 /* ===== Table Wrapper & Core Table ===== */
 .ct-table-wrapper {
   flex: 1;
-  min-height: 25rem;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: auto;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  max-height: calc(15 * 3rem + 3.375rem);
   scrollbar-width: thin;
   scrollbar-color: transparent var(--row-bg);
 }

@@ -9,7 +9,7 @@ for (const key of new Set([...Object.keys(tableStyles || {}), ...Object.keys(loc
   styles[key] = [tableStyles?.[key], localS[key]].filter(Boolean).join(" ");
 }
 
-const ROWS_OPTIONS = [10, 25, 50];
+const ROWS_OPTIONS = [10, 25, 50, 100];
 
 const Pagination = ({
   currentPage, setCurrentPage,
