@@ -321,7 +321,7 @@
 .ct-go-to input:active,
 .ct-rows-trigger:focus,
 .ct-rows-trigger:active {
-  border: 1px solid var(--primary-color) !important;
+  border: 1.5px solid var(--primary-color) !important;
   box-shadow: 0 0 0 1px var(--primary-color);
   outline: none;
 }
