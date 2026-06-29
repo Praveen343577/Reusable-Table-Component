@@ -6,17 +6,8 @@
   position: relative;
   z-index: 100;
   flex-shrink: 0;
-}
-
-.ct-toolbar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border-bottom: 1px solid var(--glass-border);
-  z-index: -1;
+  background: var(--surface-bg);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .ct-tabs {

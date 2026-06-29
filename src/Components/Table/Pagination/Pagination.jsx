@@ -45,11 +45,11 @@ const Pagination = ({
             <ChevronDown size={12} className={`${styles["ct-rows-chevron"]} ${showRowsDropdown ? styles['rotated'] : ''}`} />
           </button>
           {showRowsDropdown && (
-            <div className={[styles["ct-glass-dropdown"], styles["ct-rows-dropdown"]].filter(Boolean).join(" ")}>
+            <div className={[styles["ct-dropdown"], styles["ct-rows-dropdown"]].filter(Boolean).join(" ")}>
               {ROWS_OPTIONS.map((opt) => (
                 <button
                   key={opt}
-                  className={`${styles["ct-glass-dropdown-item"]} ${rowsPerPage === opt ? styles['active'] : ''}`}
+                  className={`${styles["ct-dropdown-item"]} ${rowsPerPage === opt ? styles['active'] : ''}`}
                   onClick={() => {
                     setRowsPerPage(opt);
                     setCurrentPage(1);
