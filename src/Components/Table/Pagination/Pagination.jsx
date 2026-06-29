@@ -34,7 +34,7 @@ const Pagination = ({
     <div className={styles["ct-footer"]}>
       <div className={styles["ct-showing-text"]}>
         <span className={styles["ct-showing-label"]}>
-          {localeText.showing || "Showing"} {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} {localeText.of || "of"} {totalEntries} {localeText.page || "page"}
+          {localeText.showing || "Showing"} {totalEntries === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + rowsPerPage, totalEntries)} {localeText.of || "of"} {totalEntries} {localeText.rows || "rows"}
         </span>
         <div style={{ position: 'relative' }} ref={rowsDropdownRef}>
           <button
