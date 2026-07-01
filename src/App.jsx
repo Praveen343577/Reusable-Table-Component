@@ -112,8 +112,8 @@ function App() {
       valueExtractor: (val) => parseInt(val),
       ranges: [
         { label: '0 km/h', min: 0, max: 0 },
-        { label: '1–25 km/h', min: 1, max: 25 },
-        { label: '26–50 km/h', min: 26, max: 50 },
+        { label: '1 - 25 km/h', min: 1, max: 25 },
+        { label: '26 - 50 km/h', min: 26, max: 50 },
         { label: '>50 km/h', min: 51, max: Infinity },
       ],
       searchable: false,
